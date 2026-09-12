@@ -6,6 +6,9 @@ const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf
 const knowledgeHtml = await readFile(new URL('../dist/knowledge/index.html', import.meta.url), 'utf8');
 const applicationGatewayHtml = await readFile(new URL('../dist/knowledge/application-gateway/index.html', import.meta.url), 'utf8');
 const kerberosHtml = await readFile(new URL('../dist/knowledge/kerberos/index.html', import.meta.url), 'utf8');
+const staticWebAppConfig = JSON.parse(
+  await readFile(new URL('../dist/staticwebapp.config.json', import.meta.url), 'utf8'),
+);
 
 test('renders the required MVP sections', () => {
   for (const section of ['top', 'about', 'experience', 'contact']) {
@@ -62,4 +65,9 @@ test('knowledge articles expose review context and official references', () => {
     assert.match(page, /https:\/\/learn\.microsoft\.com\//);
     assert.doesNotMatch(page, /\[\[[^\]]+\]\]/);
   }
+});
+
+test('publishes security headers for Azure Static Web Apps', () => {
+  assert.equal(staticWebAppConfig.globalHeaders['X-Content-Type-Options'], 'nosniff');
+  assert.equal(staticWebAppConfig.globalHeaders['Referrer-Policy'], 'strict-origin-when-cross-origin');
 });
