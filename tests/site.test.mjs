@@ -35,6 +35,9 @@ test('profile content reflects the documented work history and interests', () =>
   assert.match(html, /Azure NetApp Files/);
   assert.match(html, /MuleSoft/);
   assert.match(html, /U\.S\. stock market/);
+  assert.match(html, /AI-assisted programming/);
+  assert.match(html, /AI Engineer, Solution Architect, or Solution Engineer/);
+  assert.doesNotMatch(html, /Demo image|Boomi Product Researcher/);
 });
 
 test('built page contains no common credential patterns', () => {
