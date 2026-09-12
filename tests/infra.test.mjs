@@ -7,6 +7,10 @@ const vmWebsiteModule = await readFile(new URL('../infra/azure-vm/modules/websit
 const vmTemplates = `${vmEntrypoint}\n${vmWebsiteModule}`;
 const staticEntrypoint = await readFile(new URL('../infra/static-web-app/main.bicep', import.meta.url), 'utf8');
 const staticSiteModule = await readFile(new URL('../infra/static-web-app/static-site.bicep', import.meta.url), 'utf8');
+const deploymentWorkflow = await readFile(
+  new URL('../.github/workflows/deploy-static-web-app.yml', import.meta.url),
+  'utf8',
+);
 
 test('keeps deployment inputs reusable and free of environment identifiers', () => {
   assert.match(vmEntrypoint, /targetScope = 'subscription'/);
@@ -51,4 +55,13 @@ test('keeps the static hosting template free of environment identifiers', () => 
   assert.doesNotMatch(staticTemplates, /\/subscriptions\/[0-9a-f-]{36}/i);
   assert.doesNotMatch(staticTemplates, /[\w.+-]+@microsoft\.com/i);
   assert.doesNotMatch(staticTemplates, /param subscriptionId/i);
+});
+
+test('deploys the tested static build when main is updated', () => {
+  assert.match(deploymentWorkflow, /push:\s*\n\s*branches:\s*\n\s*- main/);
+  assert.match(deploymentWorkflow, /run: npm test/);
+  assert.match(deploymentWorkflow, /run: npm run check/);
+  assert.match(deploymentWorkflow, /SWA_CLI_DEPLOYMENT_TOKEN: \$\{\{ secrets\.AZURE_STATIC_WEB_APPS_API_TOKEN \}\}/);
+  assert.match(deploymentWorkflow, /deploy \.\/dist --env production/);
+  assert.doesNotMatch(deploymentWorkflow, /[0-9a-f]{8}-[0-9a-f-]{27}/i);
 });

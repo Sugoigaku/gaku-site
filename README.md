@@ -104,6 +104,19 @@ Remove-Item Env:SWA_CLI_DEPLOYMENT_TOKEN
 Invoke-WebRequest $websiteUrl -UseBasicParsing
 ```
 
+### Automatic deployment from GitHub
+
+The workflow in `.github/workflows/deploy-static-web-app.yml` runs after every push to `main`. It installs dependencies, runs `npm test` and `npm run check`, and deploys the generated `dist/` directory only when those checks pass. It can also be started manually from the repository's **Actions** tab.
+
+Add the Static Web Apps deployment token to GitHub before the first workflow run:
+
+1. In GitHub, open **Settings > Secrets and variables > Actions**.
+2. Select **New repository secret**.
+3. Name it `AZURE_STATIC_WEB_APPS_API_TOKEN`.
+4. Set its value to the token returned by `az staticwebapp secrets list` in the manual deployment example above.
+
+The token must remain in GitHub Actions secrets and must not be added to the workflow or any committed file. Workflow runs and logs are available under **Actions > Deploy Azure Static Web App**.
+
 For a custom domain, create a direct CNAME from `www` to the generated `azurestaticapps.net` hostname before deployment. If your DNS provider proxies the CNAME, either temporarily switch it to DNS-only for `cname-delegation` validation or deploy with `customDomainValidationMethod=dns-txt-token` and add the TXT record returned by Azure. Managed TLS issuance and renewal are included in the Free plan.
 
 After validating the generated HTTPS URL, the previous VM resource group can be deleted to stop VM, disk, and public-IP charges. Resource-group deletion is irreversible and is intentionally not part of this template.
