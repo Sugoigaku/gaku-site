@@ -59,6 +59,9 @@ test('keeps the static hosting template free of environment identifiers', () => 
 
 test('deploys the tested static build when main is updated', () => {
   assert.match(deploymentWorkflow, /push:\s*\n\s*branches:\s*\n\s*- main/);
+  assert.match(deploymentWorkflow, /uses: actions\/checkout@v5/);
+  assert.match(deploymentWorkflow, /uses: actions\/setup-node@v5/);
+  assert.doesNotMatch(deploymentWorkflow, /uses: actions\/(?:checkout|setup-node)@v4/);
   assert.match(deploymentWorkflow, /run: npm test/);
   assert.match(deploymentWorkflow, /run: npm run check/);
   assert.match(deploymentWorkflow, /SWA_CLI_DEPLOYMENT_TOKEN: \$\{\{ secrets\.AZURE_STATIC_WEB_APPS_API_TOKEN \}\}/);
