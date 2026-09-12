@@ -17,9 +17,9 @@ npm run dev
 npm test
 ```
 
-## Deploy to Azure with Bicep
+## Deploy to an Azure VM with Bicep
 
-The reusable template in `infra/main.bicep` creates a resource group, VNet, subnet, NSG, static public IP with a unique DNS label, NIC, and a small Ubuntu VM. Cloud-init installs Node.js and Nginx, builds this public repository, and serves the generated `dist/` directory. Only HTTP port 80 is open to the Internet; SSH is key-only and is not exposed by the NSG.
+The reusable template in `infra/azure-vm/main.bicep` creates a resource group, VNet, subnet, NSG, static public IP with a unique DNS label, NIC, and a small Ubuntu VM. Cloud-init installs Node.js and Nginx, builds this public repository, and serves the generated `dist/` directory. Only HTTP port 80 is open to the Internet; SSH is key-only and is not exposed by the NSG.
 
 Prerequisites:
 
@@ -34,7 +34,7 @@ $publicKey = Get-Content "$HOME/.ssh/id_ed25519.pub" -Raw
 az deployment sub create `
 	--name gaku-site `
 	--location japaneast `
-	--template-file infra/main.bicep `
+	--template-file infra/azure-vm/main.bicep `
 	--parameters sshPublicKey="$publicKey"
 ```
 
@@ -44,7 +44,7 @@ To use another region, resource-group name, VM size, repository, or source revis
 az deployment sub create `
 	--name gaku-site `
 	--location eastus `
-	--template-file infra/main.bicep `
+	--template-file infra/azure-vm/main.bicep `
 	--parameters `
 		location=eastus `
 		resourceGroupName=rg-my-gaku-site `
