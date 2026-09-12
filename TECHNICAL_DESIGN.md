@@ -144,6 +144,8 @@ Deployment choices:
 
 Deployment should run `npm test` and `npm run check` before publishing. Secrets, if ever required by build tooling, must be stored in the hosting platform's secret store and never committed.
 
+The reusable Azure VM deployment is defined in `infra/main.bicep`. It is subscription-scoped so it can create its own resource group, delegates resource creation to a resource-group-scoped module, accepts the SSH public key as a secure runtime parameter, and derives a globally unique DNS label without embedding subscription-specific values. The VM uses cloud-init to build the selected Git revision and serve the static output through Nginx.
+
 ## 9. Quality and Security
 
 Every change must include or update relevant tests and receive its own Git commit.
