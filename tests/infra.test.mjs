@@ -40,7 +40,10 @@ test('provides a separate reusable Static Web Apps Free deployment', () => {
   assert.match(staticSiteModule, /Microsoft\.Web\/staticSites@2024-11-01/);
   assert.match(staticSiteModule, /name: 'Free'/);
   assert.match(staticSiteModule, /tier: 'Free'/);
-  assert.match(staticSiteModule, /output websiteUrl string = 'https:\/\//);
+  assert.match(staticSiteModule, /Microsoft\.Web\/staticSites\/customDomains@2024-11-01/);
+  assert.match(staticSiteModule, /if \(!empty\(customDomainName\)\)/);
+  assert.match(staticSiteModule, /output websiteUrl string = !empty\(customDomainName\)/);
+  assert.match(staticSiteModule, /'https:\/\/\$\{customDomainName\}'/);
 });
 
 test('keeps the static hosting template free of environment identifiers', () => {

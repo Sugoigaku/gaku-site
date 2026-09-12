@@ -25,6 +25,11 @@ test('includes essential metadata and accessible navigation', () => {
   assert.match(html, /href="#main-content"/);
 });
 
+test('uses the custom HTTPS domain as the production site origin', async () => {
+  const astroConfig = await readFile(new URL('../astro.config.mjs', import.meta.url), 'utf8');
+  assert.match(astroConfig, /site: 'https:\/\/www\.gakuchen\.com'/);
+});
+
 test('external links are safe and contact actions are available', () => {
   assert.match(html, /href="https:\/\/github\.com\/Sugoigaku" target="_blank" rel="noreferrer"/);
   assert.match(html, /href="mailto:hakbean0728@gmail\.com"/);

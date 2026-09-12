@@ -75,6 +75,7 @@ $deployment = az deployment sub create `
 	--name gaku-site-static `
 	--location eastasia `
 	--template-file infra/static-web-app/main.bicep `
+	--parameters customDomainName=www.example.com `
 	--query properties.outputs `
 	--output json | ConvertFrom-Json
 
@@ -102,6 +103,8 @@ npx --yes @azure/static-web-apps-cli@2.0.2 deploy ./dist `
 Remove-Item Env:SWA_CLI_DEPLOYMENT_TOKEN
 Invoke-WebRequest $websiteUrl -UseBasicParsing
 ```
+
+For a custom domain, create a direct CNAME from `www` to the generated `azurestaticapps.net` hostname before deployment. If your DNS provider proxies the CNAME, either temporarily switch it to DNS-only for `cname-delegation` validation or deploy with `customDomainValidationMethod=dns-txt-token` and add the TXT record returned by Azure. Managed TLS issuance and renewal are included in the Free plan.
 
 After validating the generated HTTPS URL, the previous VM resource group can be deleted to stop VM, disk, and public-IP charges. Resource-group deletion is irreversible and is intentionally not part of this template.
 

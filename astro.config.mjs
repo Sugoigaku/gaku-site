@@ -2,5 +2,5 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://sugoigaku.github.io/gaku-site',
+  site: 'https://www.gakuchen.com',
 });
