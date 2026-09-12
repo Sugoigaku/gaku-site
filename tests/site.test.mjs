@@ -24,8 +24,17 @@ test('includes essential metadata and accessible navigation', () => {
 
 test('external links are safe and contact actions are available', () => {
   assert.match(html, /href="https:\/\/github\.com\/Sugoigaku" target="_blank" rel="noreferrer"/);
-  assert.match(html, /href="mailto:hello\.gaku@example\.com"/);
+  assert.match(html, /href="mailto:hakbean0728@gmail\.com"/);
   assert.match(html, /data-copy-email/);
+});
+
+test('profile content reflects the documented work history and interests', () => {
+  assert.match(html, /Jun 2025\s*—\s*Present/);
+  assert.match(html, /Salesforce Japan/);
+  assert.match(html, /NTT DATA/);
+  assert.match(html, /Azure NetApp Files/);
+  assert.match(html, /MuleSoft/);
+  assert.match(html, /U\.S\. stock market/);
 });
 
 test('built page contains no common credential patterns', () => {
