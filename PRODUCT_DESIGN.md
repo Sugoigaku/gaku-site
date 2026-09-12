@@ -74,22 +74,37 @@ The website will use one continuous page with simple navigation to four sections
 ## 7. Out of Scope for MVP
 
 - Project portfolio.
-- Blog, notes, search, tags, or content management system.
+- Public wiki, investment notes, search, tags, or content management system.
 - Contact form or backend service.
-- User accounts, comments, newsletter, or database.
+- User accounts, comments, public interaction, newsletter, or database.
 - Language switching.
 - Analytics dashboard or complex animation system.
+- Automated publishing or synchronization from Obsidian.
+- Any changes to the existing Obsidian vault or its directory structure.
 
 These features should only be added when there is real content or a clear user need for them.
 
-## 8. Technical Direction
+## 8. Future Knowledge Publishing
+
+Technical wiki articles and investment reflections may be added in a later phase. For now, publication will remain a manual, review-first process:
+
+1. Gaku identifies the specific wiki content he wants to publish.
+2. The content is reviewed for publication risks before any website change is made.
+3. If risks are found, proposed edits or redactions are presented to Gaku for confirmation.
+4. Only the confirmed, public-safe version is added to the website repository.
+
+The review should check for credentials, customer or case information, private resource identifiers, internal-only links or procedures, copyrighted material, personal financial data, and statements that could be mistaken for personalized financial advice.
+
+The website repository will contain only approved public copies. The original Obsidian content will remain unchanged unless Gaku explicitly requests a separate workflow in the future. Publishing scripts, automatic synchronization, and comments will not be designed or implemented at this stage.
+
+## 9. Technical Direction
 
 - Build as a static Astro site.
 - Keep profile content in simple local data or components for easy editing.
 - Deploy through a static hosting provider such as GitHub Pages, Cloudflare Pages, or Vercel.
 - Add automated checks for build success, formatting, and critical page behavior before deployment.
 
-## 9. MVP Completion Criteria
+## 10. MVP Completion Criteria
 
 The MVP is ready when:
 
