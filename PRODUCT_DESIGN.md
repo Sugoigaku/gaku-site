@@ -53,6 +53,12 @@ The website will use one continuous page with simple navigation to four sections
 - LinkedIn profile.
 - Optional downloadable resume if one is available and current.
 
+### Knowledge
+
+- A small public index of reviewed technical articles.
+- Individual English article pages with topics, review dates, and official references.
+- Content is added manually only after publication-risk review and approval.
+
 ## 5. Design Direction
 
 - Professional, calm, and personal rather than corporate or promotional.
@@ -74,7 +80,7 @@ The website will use one continuous page with simple navigation to four sections
 ## 7. Out of Scope for MVP
 
 - Project portfolio.
-- Public wiki, investment notes, search, tags, or content management system.
+- Investment notes, search, filtering, or content management system.
 - Contact form or backend service.
 - User accounts, comments, public interaction, newsletter, or database.
 - Language switching.
@@ -86,7 +92,7 @@ These features should only be added when there is real content or a clear user n
 
 ## 8. Future Knowledge Publishing
 
-Technical wiki articles and investment reflections may be added in a later phase. For now, publication will remain a manual, review-first process:
+The first public technical wiki articles are included as a small extension to the MVP. Additional technical articles and future investment reflections will use the same manual, review-first process:
 
 1. Gaku identifies the specific wiki content he wants to publish.
 2. The content is reviewed for publication risks before any website change is made.

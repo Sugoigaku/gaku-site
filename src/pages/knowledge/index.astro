@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import KnowledgeLayout from '../../layouts/KnowledgeLayout.astro';
+
+const entries = (await getCollection('knowledge')).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+---
+
+<KnowledgeLayout title="Knowledge" description="Public notes on cloud infrastructure, identity, and practical technical problem solving.">
+  <section class="knowledge-hero" aria-labelledby="knowledge-title">
+    <div class="article-shell">
+      <p class="eyebrow">Public notebook</p>
+      <h1 id="knowledge-title">Knowledge</h1>
+      <p>Reviewed notes on the systems I work with and the ideas I want to understand more clearly.</p>
+    </div>
+  </section>
+  <section class="knowledge-list-section" aria-label="Published articles">
+    <div class="article-shell knowledge-grid">
+      {entries.map((entry, index) => (
+        <article class="knowledge-card">
+          <div class="knowledge-card-meta">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <span>{entry.data.category}</span>
+          </div>
+          <h2><a href={`/knowledge/${entry.id}/`}>{entry.data.title}</a></h2>
+          <p>{entry.data.description}</p>
+          <div class="tag-list" aria-label="Tags">
+            {entry.data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+          <a class="text-link" href={`/knowledge/${entry.id}/`}>Read article <span aria-hidden="true">↗</span></a>
+        </article>
+      ))}
+    </div>
+  </section>
+</KnowledgeLayout>

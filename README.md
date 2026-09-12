@@ -1,6 +1,13 @@
 # Gaku Personal Website
 
-An English-only, single-page personal website demo built with Astro. The current profile details, experience dates, email address, LinkedIn destination, and images are sample content for reviewing the interface and user flow.
+An English-only personal website demo built with Astro. It includes a single-page professional profile and a small public Knowledge section. The current profile details, experience dates, email address, LinkedIn destination, and images are sample content for reviewing the interface and user flow.
+
+The Knowledge section currently publishes two reviewed English adaptations:
+
+- Azure Application Gateway
+- Kerberos, from Tickets to Azure NetApp Files
+
+The original Obsidian notes remain unchanged. Public copies are maintained in `src/content/knowledge` after manual publication review.
 
 ## Commands
 

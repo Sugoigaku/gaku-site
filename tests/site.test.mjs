@@ -3,6 +3,9 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
+const knowledgeHtml = await readFile(new URL('../dist/knowledge/index.html', import.meta.url), 'utf8');
+const applicationGatewayHtml = await readFile(new URL('../dist/knowledge/application-gateway/index.html', import.meta.url), 'utf8');
+const kerberosHtml = await readFile(new URL('../dist/knowledge/kerberos/index.html', import.meta.url), 'utf8');
 
 test('renders the required MVP sections', () => {
   for (const section of ['top', 'about', 'experience', 'contact']) {
@@ -26,6 +29,25 @@ test('external links are safe and contact actions are available', () => {
 });
 
 test('built page contains no common credential patterns', () => {
-  assert.doesNotMatch(html, /(?:api[_-]?key|password|secret|token)\s*[:=]\s*["'][^"']+/i);
-  assert.doesNotMatch(html, /-----BEGIN .*PRIVATE KEY-----/);
+  for (const page of [html, knowledgeHtml, applicationGatewayHtml, kerberosHtml]) {
+    assert.doesNotMatch(page, /(?:api[_-]?key|password|secret|token)\s*[:=]\s*["'][^"']+/i);
+    assert.doesNotMatch(page, /-----BEGIN .*PRIVATE KEY-----/);
+  }
+});
+
+test('publishes the approved English knowledge pages', () => {
+  assert.match(html, /<a href="\/knowledge\/"[^>]*>Knowledge<\/a>/);
+  assert.match(knowledgeHtml, /Azure Application Gateway/);
+  assert.match(knowledgeHtml, /Kerberos, from Tickets to Azure NetApp Files/);
+  assert.match(applicationGatewayHtml, /Application Gateway requires a dedicated subnet/);
+  assert.match(kerberosHtml, /Kerberos is a ticket-based network authentication protocol/);
+});
+
+test('knowledge articles expose review context and official references', () => {
+  for (const page of [applicationGatewayHtml, kerberosHtml]) {
+    assert.match(page, /Reviewed September 12, 2026/);
+    assert.match(page, /Official References/);
+    assert.match(page, /https:\/\/learn\.microsoft\.com\//);
+    assert.doesNotMatch(page, /\[\[[^\]]+\]\]/);
+  }
 });
