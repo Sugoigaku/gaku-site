@@ -1,0 +1,213 @@
+---
+import '../styles/global.css';
+
+const email = 'hello.gaku@example.com';
+const navItems = [
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Gaku Chen is a cloud infrastructure support engineer focused on Azure, deep technical troubleshooting, and clear knowledge sharing." />
+    <meta name="theme-color" content="#171816" />
+    <meta property="og:title" content="Gaku Chen | Cloud Infrastructure Engineer" />
+    <meta property="og:description" content="Cloud infrastructure, technical support, and practical problem solving." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>Gaku Chen | Cloud Infrastructure Engineer</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <nav class="nav-shell" aria-label="Main navigation">
+        <a class="brand" href="#top" aria-label="Gaku Chen, back to top">Gaku<span class="brand-mark">.</span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation" data-menu-toggle>
+          <span></span>
+        </button>
+        <ul class="nav-links" id="primary-navigation" data-menu>
+          {navItems.map((item) => (
+            <li><a href={item.href} data-nav-link>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <p class="eyebrow">Cloud infrastructure · Tokyo</p>
+          <h1 id="hero-title">Gaku Chen</h1>
+          <p class="hero-lede">I turn complex cloud infrastructure problems into clear, practical paths forward.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#contact">Start a conversation <span aria-hidden="true">↘</span></a>
+            <a class="button" href="#about">More about me <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about" aria-labelledby="about-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <span class="section-number">01 / About</span>
+            <h2 id="about-title">Calm thinking for complicated systems.</h2>
+          </div>
+          <div class="about-grid">
+            <figure class="portrait-panel">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=82" alt="Workspace with a laptop and notebook" loading="lazy" />
+              <span>Demo image</span>
+            </figure>
+            <div class="about-copy">
+              <p class="lead">I am a cloud infrastructure support engineer who enjoys finding the signal in noisy, high-stakes technical problems.</p>
+              <p>My work sits at the intersection of Azure infrastructure, customer support, and knowledge engineering. I care about rigorous diagnosis, useful communication, and turning one difficult investigation into guidance that helps the next person move faster.</p>
+              <p>Right now, I am exploring better ways to combine deep domain expertise with AI-assisted workflows while keeping human judgment firmly in the loop.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience" aria-labelledby="experience-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <span class="section-number">02 / Experience</span>
+            <h2 id="experience-title">Built around investigation, clarity, and follow-through.</h2>
+          </div>
+
+          <div class="experience-list">
+            <article class="experience-row">
+              <div class="experience-meta">2022 — Present<br />Microsoft</div>
+              <div>
+                <h3>Cloud Infrastructure Support Engineer</h3>
+                <p>Investigating complex Azure infrastructure issues, coordinating across engineering teams, and translating technical evidence into practical customer outcomes.</p>
+              </div>
+            </article>
+            <article class="experience-row">
+              <div class="experience-meta">Current focus<br />Applied AI</div>
+              <div>
+                <h3>Knowledge and Workflow Design</h3>
+                <p>Building structured troubleshooting knowledge and experimenting with responsible AI workflows that make expert support more consistent and easier to scale.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="skills" aria-label="Selected skills">
+            <article class="skill-group">
+              <h3>Infrastructure</h3>
+              <ul>
+                <li>Microsoft Azure</li>
+                <li>Networking and storage</li>
+                <li>Hybrid cloud systems</li>
+              </ul>
+            </article>
+            <article class="skill-group">
+              <h3>Investigation</h3>
+              <ul>
+                <li>Technical troubleshooting</li>
+                <li>Telemetry and log analysis</li>
+                <li>Root cause reasoning</li>
+              </ul>
+            </article>
+            <article class="skill-group">
+              <h3>Collaboration</h3>
+              <ul>
+                <li>Customer communication</li>
+                <li>Knowledge engineering</li>
+                <li>Cross-team coordination</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="section-inner">
+          <span class="section-number">03 / Contact</span>
+          <h2 id="contact-title">Have a hard problem worth untangling?</h2>
+          <p class="contact-lede">I am always interested in thoughtful conversations about cloud infrastructure, technical support, and practical uses of AI.</p>
+          <div class="contact-actions">
+            <a class="button primary" href={`mailto:${email}`}>Send an email <span aria-hidden="true">↗</span></a>
+            <button class="button" type="button" data-copy-email data-email={email}>Copy email</button>
+          </div>
+          <ul class="social-list">
+            <li><a href="https://github.com/Sugoigaku" target="_blank" rel="noreferrer">GitHub ↗</a></li>
+            <li><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn ↗</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© 2026 Gaku Chen</span>
+        <span>Concept demo · Sample profile content</span>
+      </div>
+    </footer>
+
+    <div class="toast" role="status" aria-live="polite" hidden data-toast>Email copied to clipboard</div>
+
+    <script>
+      const header = document.querySelector('[data-header]');
+      const menuToggle = document.querySelector('[data-menu-toggle]');
+      const menu = document.querySelector('[data-menu]');
+      const navLinks = document.querySelectorAll('[data-nav-link]');
+      const copyButton = document.querySelector('[data-copy-email]');
+      const toast = document.querySelector('[data-toast]');
+
+      const closeMenu = () => {
+        menu?.classList.remove('open');
+        document.body.classList.remove('menu-open');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+        menuToggle?.setAttribute('aria-label', 'Open navigation');
+      };
+
+      menuToggle?.addEventListener('click', () => {
+        const willOpen = menuToggle.getAttribute('aria-expanded') !== 'true';
+        menu?.classList.toggle('open', willOpen);
+        document.body.classList.toggle('menu-open', willOpen);
+        menuToggle.setAttribute('aria-expanded', String(willOpen));
+        menuToggle.setAttribute('aria-label', willOpen ? 'Close navigation' : 'Open navigation');
+      });
+
+      navLinks.forEach((link) => link.addEventListener('click', closeMenu));
+
+      const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 40);
+      updateHeader();
+      window.addEventListener('scroll', updateHeader, { passive: true });
+
+      const sections = [...document.querySelectorAll('main section[id]')];
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (!visible) return;
+        navLinks.forEach((link) => {
+          const isCurrent = link.getAttribute('href') === `#${visible.target.id}`;
+          if (isCurrent) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      }, { rootMargin: '-25% 0px -65% 0px' });
+      sections.forEach((section) => observer.observe(section));
+
+      copyButton?.addEventListener('click', async () => {
+        const emailAddress = copyButton.getAttribute('data-email');
+        if (!emailAddress) return;
+        try {
+          await navigator.clipboard.writeText(emailAddress);
+          if (toast instanceof HTMLElement) {
+            toast.hidden = false;
+            window.setTimeout(() => { toast.hidden = true; }, 2200);
+          }
+        } catch {
+          window.location.href = `mailto:${emailAddress}`;
+        }
+      });
+    </script>
+  </body>
+</html>
