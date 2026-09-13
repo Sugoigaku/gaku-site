@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Three decisions behind Gaku's personal website: a constrained MVP, selective publishing, and managed static hosting. Evidence and limitations included.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Gaku | Selected Projects</title>
+  <link rel="icon" href="assets/arrow-up-right.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="portfolio-v2.css">
+</head>
+<body>
+  <a class="skip" href="#main-content">Skip to content</a>
+  <header class="site-header"><div class="shell header-inner">
+    <a class="brand" href="#projects" aria-label="Gaku projects">Gaku<span>.</span></a>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a href="#projects" data-view="projects" aria-current="page">Projects</a>
+      <a href="#overview" data-view="case">Case study</a>
+      <a class="external-nav" href="https://www.gakuchen.com/knowledge/">Knowledge</a>
+    </nav>
+  </div></header>
+  <main id="main-content" tabindex="-1">
+    <div id="projects-view">
+      <section class="shell preview" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading"><div><p class="eyebrow">03 / Selected work</p><h1 id="projects-title" tabindex="-1">Projects.</h1></div><span class="small-label">Decisions &amp; evidence</span></div>
+        <article class="project-preview">
+          <a class="project-image" href="#overview" aria-label="View Gaku Personal Website case study"><img src="assets/gaku-site-desktop.png" alt="Gaku Chen's deployed personal website showing the introduction and About section" width="1440" height="1000"></a>
+          <div class="preview-copy"><span class="status">Live project / Solo build</span><h2>Gaku Personal Website</h2>
+            <p>A professional profile and a small public knowledge library, delivered with GitHub Copilot.</p>
+            <p>I narrowed the MVP, required a private-to-public content boundary, and approved a move from a Linux VM to managed hosting when HTTPS changed the requirements.</p>
+            <div class="tags"><span>Astro / TypeScript</span><span>Azure / Bicep</span><span>GitHub Actions</span></div>
+            <div class="actions"><a class="button" href="#overview">View case study <img class="icon" src="assets/arrow-right.svg" alt="" width="17" height="17"></a><a class="text-link" href="https://github.com/Sugoigaku/gaku-site" target="_blank" rel="noopener noreferrer">Source <img class="icon" src="assets/arrow-up-right.svg" alt="" width="17" height="17"></a></div>
+            <div class="preview-note"><span class="small-label">In this case</span><p>Three decisions, supporting artifacts, and the limits of what they prove.</p></div>
+          </div>
+        </article>
+      </section>
+      <section class="contact-band" aria-labelledby="contact-title"><div class="shell"><div><p class="eyebrow">04 / Contact</p><h2 id="contact-title">Let's connect.</h2></div><a class="text-link" href="https://www.gakuchen.com/#contact">Start a conversation <img class="icon" src="assets/arrow-up-right.svg" alt="" width="17" height="17"></a></div></section>
+    </div>
+    <div id="case-view" hidden>
+      <section class="shell case-intro" id="overview" aria-labelledby="case-title">
+        <div class="breadcrumbs"><a href="#projects">Projects</a><span aria-hidden="true">/</span><span>Gaku Personal Website</span></div>
+        <p class="eyebrow">Engineering case study / September 2026</p>
+        <h1 id="case-title" tabindex="-1">Gaku Personal Website</h1>
+        <p class="lead">Three decisions behind a small cloud deployment.</p>
+        <p class="intro-copy">A constrained MVP, a selective publishing boundary, and a hosting choice revisited when HTTPS became a requirement.</p>
+        <div class="actions"><a class="button" href="https://www.gakuchen.com/" target="_blank" rel="noopener noreferrer">Visit live site <img class="icon" src="assets/arrow-up-right.svg" alt="" width="17" height="17"></a><a class="text-link" href="#decisions">Explore the decisions <img class="icon" src="assets/arrow-right.svg" alt="" width="17" height="17"></a></div>
+        <dl class="facts"><div><dt>My role</dt><dd>Requirements, decisions &amp; review</dd></div><div><dt>Implementation</dt><dd>With GitHub Copilot</dd></div><div><dt>Budget ceiling</dt><dd>$0-20 / month; minimize spend</dd></div><div><dt>Current audience</dt><dd>Owner-only MVP</dd></div></dl>
+      </section>
+      <section class="summary-band" aria-label="Results and evidence limits"><div class="shell summary-grid">
+        <div><span class="status">Implemented</span><h2>Profile + knowledge + HTTPS</h2><p>Two reviewed articles and an application deployment workflow. No application backend or database.</p></div>
+        <div><span class="status">Architectural change</span><h2>VM to managed hosting</h2><p>OS and Nginx operation removed from the selected production design. Both options remain in Bicep.</p></div>
+        <div><span class="status unproven">Not established</span><h2>Reliability &amp; performance</h2><p>No uptime history, benchmark, measured total cost, or timed recovery result is presented.</p><a href="#evidence">Evidence &amp; its limits</a></div>
+      </div></section>
+      <div class="mobile-nav"><label for="section-select">Section</label><select id="section-select"><option value="brief">01 / Brief &amp; ownership</option><option value="decisions">02 / Three decisions</option><option value="architecture">03 / Runtime &amp; delivery</option><option value="evidence">04 / Evidence</option><option value="limits">05 / Risks &amp; next proof</option></select></div>
+      <div class="shell case-grid">
+        <nav class="section-nav" aria-label="Case study sections"><p class="small-label">Decision record</p><a href="#brief" aria-current="location"><span>01</span>Brief &amp; ownership</a><a href="#decisions"><span>02</span>Three decisions</a><a href="#architecture"><span>03</span>Runtime &amp; delivery</a><a href="#evidence"><span>04</span>Evidence</a><a href="#limits"><span>05</span>Risks &amp; next proof</a><a class="back-link" href="#projects"><img class="icon" src="assets/arrow-left.svg" alt="" width="17" height="17">All projects</a></nav>
+        <div class="case-content">
+          <section class="chapter" id="brief" aria-labelledby="brief-title">
+            <p class="eyebrow">01 / Brief &amp; ownership</p><h2 id="brief-title">What I was solving.</h2>
+            <p>A public professional profile with selected technical writing. The goal was to publish useful content, not build a multi-user application.</p>
+            <div class="brief-grid"><dl class="requirements"><div><dt>Original scope</dt><dd>English profile, experience, contact, and later two approved knowledge articles.</dd></div><div><dt>Budget now</dt><dd>$0-20 per month. Spend as little as practical for an owner-only static MVP.</dd></div><div><dt>Still undefined</dt><dd>Maintenance-hours budget, uptime target, and acceptable recovery time.</dd></div></dl><figure class="site-capture"><img src="assets/gaku-site-desktop.png" alt="Existing production profile page with introduction and navigation" width="1440" height="1000" loading="lazy"><figcaption>Existing site / September 13, 2026</figcaption></figure></div>
+            <p class="annotation">Budget and current audience were clarified on September 13, 2026, during this review. They are not presented as quantified requirements recorded before the original build.</p>
+            <div class="owner-statement"><strong>My decisions:</strong> keep the MVP small and English-only; require reviewed public copies; request the initial VM; approve the managed-hosting change; require tests, focused commits, and no credentials in Git.</div>
+            <div class="two-col"><div><h3>Copilot's contribution</h3><p>Proposed Astro and managed hosting, and assisted with code, tests, Bicep, and deployment. This was not an independently hand-coded implementation.</p></div><div><h3>A specific scope correction</h3><p>I removed the early portfolio proposal because there were no substantial projects to show, and limited the site to English. The MVP design records that narrower scope.</p></div></div>
+            <p class="annotation">This demonstrates product direction and review, not independently finding a generated-code defect.</p>
+          </section>
+          <section class="chapter" id="decisions" aria-labelledby="decisions-title">
+            <p class="eyebrow">02 / Three decisions</p><h2 id="decisions-title">The choices I can defend.</h2>
+            <ol class="decision-index"><li><a href="#decision-scope"><span>01 / Product</span>A static MVP<small>No per-user state to justify a backend.</small></a></li><li><a href="#decision-boundary"><span>02 / Content</span>Reviewed public copies<small>Private notes stay outside the build.</small></a></li><li><a href="#decision-hosting"><span>03 / Hosting</span>Reconsider the VM<small>HTTPS prompted a different option.</small></a></li></ol>
+            <article class="decision-record" id="decision-scope" data-section="decisions" aria-labelledby="scope-title">
+              <p class="eyebrow">Decision 01 / Product</p><h3 id="scope-title">Keep the application static.</h3>
+              <p>I reduced the MVP to a useful profile. Copilot selected Astro for content-first pages; I continued with that approach as approved Markdown articles were added.</p>
+              <dl class="decision-facts"><div><dt>Requirement</dt><dd>Publish English content without accounts or per-user state.</dd></div><div><dt>Consequence</dt><dd>Generate pages at build time; omit the application server and database.</dd></div><div><dt>Tradeoff</dt><dd>Content updates require a build. Private persistent features would need additional architecture.</dd></div><div><dt>Reconsider if</dt><dd>A real feature needs private saved state or request-time behavior. A browser-only tool need not force a rewrite.</dd></div></dl>
+              <div class="result-note"><span class="small-label">Evidence</span><p>The scoped MVP later gained two static article routes. This proves implementation scope, not an Astro performance advantage. <a href="https://github.com/Sugoigaku/gaku-site/commit/85594db" target="_blank" rel="noopener noreferrer">Article implementation</a></p></div>
+              <details><summary>Was Astro the only reasonable choice? <span class="status unproven">Retrospective</span></summary><div class="detail-body"><p>No. Another static generator, such as Eleventy, is a credible alternative. Astro already provides the project's typed content and a path to isolated interactive components; no measured deficit has justified switching.</p><p>There was no head-to-head benchmark or weighted selection study. Astro fits; this record does not prove it objectively wins. A future comparison should use the same content to evaluate publishing effort, build cost, and delivered JavaScript.</p></div></details>
+            </article>
+            <article class="decision-record" id="decision-boundary" data-section="decisions" aria-labelledby="boundary-title">
+              <p class="eyebrow">Decision 02 / Content</p><h3 id="boundary-title">Keep the private vault outside the build.</h3>
+              <p>I required selection and risk review before publication, with no changes to the Obsidian source and no synchronization script at this stage.</p>
+              <dl class="decision-facts"><div><dt>Requirement</dt><dd>Publish selected knowledge without copying unrelated private material.</dd></div><div><dt>Consequence</dt><dd>Only approved public adaptations enter the site's content collection.</dd></div><div><dt>Tradeoff</dt><dd>Manual duplication and possible drift between private and public versions.</dd></div><div><dt>Reconsider if</dt><dd>Repeated copying becomes a demonstrated burden. Evaluate a selective, review-gated publisher, not whole-vault synchronization.</dd></div></dl>
+              <div class="result-note"><span class="small-label">Evidence</span><p>The policy was committed before the articles. It records a control, not proof that every future edit is safe. <a href="https://github.com/Sugoigaku/gaku-site/commit/7dbff39" target="_blank" rel="noopener noreferrer">Publication boundary</a></p></div>
+              <details><summary>Why not a selective publishing script now? <span class="status unproven">Retrospective</span></summary><div class="detail-body"><p>An allowlisted exporter could reduce duplication without exposing the entire vault. For two articles, I chose manual approval rather than creating and maintaining that tool.</p><p>A human can still miss sensitive content. Review must cover credentials, private identifiers, internal material, and copyright. Automation would not remove that responsibility.</p></div></details>
+            </article>
+            <article class="decision-record" id="decision-hosting" data-section="decisions" aria-labelledby="hosting-title">
+              <p class="eyebrow">Decision 03 / Hosting</p><h3 id="hosting-title">HTTPS changed the hosting decision.</h3>
+              <p>I initially requested the lowest viable Linux VM and a public endpoint. Later I asked for HTTPS and its cost. Copilot proposed Static Web Apps Free; I approved the migration and requested a separate reusable Bicep template.</p>
+              <dl class="decision-facts"><div><dt>Requirement</dt><dd>Public HTTPS with minimal spend and no application backend.</dd></div><div><dt>Consequence</dt><dd>Use managed static hosting instead of adding TLS operation to the HTTP-only VM baseline.</dd></div><div><dt>Tradeoff</dt><dd>Less server control and platform limits. Azure was the chosen environment, not a proven exclusive business requirement.</dd></div><div><dt>Reconsider if</dt><dd>Usage, server requirements, or reliability expectations exceed the service's capabilities or acceptable cost.</dd></div></dl>
+              <div class="table-scroll" role="region" aria-label="Hosting responsibilities before and after" tabindex="0"><table><caption>What changed, and what did not</caption><thead><tr><th scope="col">Responsibility</th><th scope="col">VM baseline</th><th scope="col">Managed hosting</th></tr></thead><tbody><tr><th scope="row">Infrastructure</th><td>VM, disk, IP, network rules, Nginx</td><td>Static Web Apps resource</td></tr><tr><th scope="row">OS &amp; server</th><td>Operator patches and configures</td><td>No guest OS or Nginx to operate</td></tr><tr><th scope="row">HTTPS</th><td>Not implemented in the reference baseline</td><td>Managed TLS for the bound domain</td></tr><tr><th scope="row">Still mine</th><td colspan="2">Content safety, release correctness, domain/DNS configuration, dependency review, recovery planning</td></tr><tr><th scope="row">Cost evidence</th><td>No audited VM bill presented</td><td>Free SKU in IaC; not a measured total-cost result</td></tr></tbody></table></div>
+              <p class="annotation">The selected tier has no base hosting charge under its Free-plan terms. Domain renewal is separate. No exact savings, operating-hours reduction, or total monthly bill has been measured here.</p>
+              <details><summary>Why not GitHub Pages or another static host? <span class="status unproven">Retrospective</span></summary><div class="detail-body"><p>They remain credible alternatives. The actual path evolved from my Azure VM request; I also explicitly wanted reusable infrastructure that others could deploy in their own environment.</p><p>This was not a scored multi-provider evaluation. Without an Azure requirement, compare static hosts on total cost, deployment effort, domain support, and required service guarantees. Familiarity alone does not establish a technical winner.</p></div></details>
+              <div class="result-note"><span class="small-label">Evidence</span><p>The hosting change adds the Free SKU, runtime-token upload instructions, and tests. The VM implementation remains separate. <a href="https://github.com/Sugoigaku/gaku-site/commit/0c96a4e" target="_blank" rel="noopener noreferrer">Managed-hosting change</a></p></div>
+            </article>
+          </section>
+          <section class="chapter" id="architecture" aria-labelledby="architecture-title">
+            <p class="eyebrow">03 / Runtime &amp; delivery</p><h2 id="architecture-title">Two paths. Different failure modes.</h2>
+            <figure class="diagram"><figcaption>Runtime / no CI dependency for each visitor request</figcaption><div class="dependency"><strong>DNS lookup</strong><p>The browser resolves www.gakuchen.com. The configured CNAME points to the Azure hosting name; DNS does not proxy page content.</p></div><ol class="flow"><li><strong>Visitor browser</strong><span>Sends an HTTPS request</span></li><li class="destination"><strong>Static Web Apps</strong><span>Terminates TLS; serves published files</span></li><li><strong>Browser renders</strong><span>HTML, CSS, and small scripts</span></li></ol><p class="annotation">Separate browser requests load Google Fonts and existing Unsplash images. Those dependencies can affect appearance even if the HTML endpoint is available.</p></figure>
+            <figure class="diagram"><figcaption>Delivery / reviewed content crosses a publication boundary</figcaption><ol class="flow"><li><strong>Private notes</strong><span>Outside the website build</span></li><li><strong>Selection &amp; review</strong><span>Approve the adaptation</span></li><li><strong>Public repository</strong><span>Only intended public material</span></li></ol><div class="boundary"><h3>Deployment credential boundary</h3><ol class="flow"><li><strong>main update</strong><span>Workflow trigger</span></li><li><strong>CI runner</strong><span>Install, build, test, check</span></li><li class="destination"><strong>Upload dist</strong><span>To Azure using a runtime secret</span></li></ol><p>The token comes from GitHub Secrets into the upload step, not into public content or the visitor's browser. Bicep resource provisioning is separate from application deployment.</p></div><p class="annotation">Feature branches do not trigger this production workflow. Manual workflow dispatch also exists. Branch protection, required PR checks, and previews are not established by this record.</p></figure>
+            <details><summary>Build passes, custom domain fails: where would I look? <span class="status unproven">Not exercised</span></summary><div class="detail-body"><ol><li>Classify the failure: DNS, TLS, HTTP status, or incomplete rendering.</li><li>Compare the custom domain with the generated Azure hostname. A working generated hostname narrows the issue toward the custom-domain path, but does not prove a DNS-only cause.</li><li>Check CNAME resolution, domain binding, and certificate state; then compare the failing route with the deployed artifact and release history.</li><li>If HTML works but visuals fail, inspect font/image requests. If both hostnames fail, investigate hosting state and published content as well as the client network.</li></ol><p>This is a diagnostic plan, not a claim that an outage was reproduced or resolved.</p></div></details>
+          </section>
+          <section class="chapter" id="evidence" aria-labelledby="evidence-title">
+            <p class="eyebrow">04 / Evidence</p><h2 id="evidence-title">What the artifacts actually prove.</h2>
+            <p>Existing source, build checks, and a captured site view. No new production measurements or recovery exercises were performed for this revision.</p>
+            <div class="evidence-ledger">
+              <article class="evidence-item"><span class="status">Scope record</span><div><h3>A deliberately reduced MVP</h3><p>The initial design specifies an English-only profile and excludes projects, accounts, and a backend. Later commits add two approved knowledge articles.</p><p class="annotation">Shows scope and iteration, not user adoption or independent stakeholder research.</p><a href="https://github.com/Sugoigaku/gaku-site/commit/29c9387" target="_blank" rel="noopener noreferrer">Initial scope decision</a></div></article>
+              <article class="evidence-item"><span class="status">Build checks</span><div><h3>Tests inspect the generated site</h3><p>Site tests inspect static output for routes, metadata, content, and common credential patterns. Infrastructure tests assert expected strings in Bicep and workflow source.</p><p class="annotation">They do not exercise Azure provisioning or establish live uptime, full accessibility, or secret-scanner coverage. Passing source assertions is not end-to-end validation.</p><a href="https://github.com/Sugoigaku/gaku-site/tree/a69de36/tests" target="_blank" rel="noopener noreferrer">Tests at the reviewed revision</a></div></article>
+              <article class="evidence-item"><span class="status">Source artifact</span><div><h3>Release automation with explicit gates</h3><p>The workflow runs npm ci, npm test, and npm run check before uploading dist. It uses a runtime deployment secret and cancels superseded production runs.</p><p class="annotation">Initial development progressed on main; this portfolio uses a feature branch. A workflow definition is not proof of mandatory review or a successful current deployment.</p><a href="https://github.com/Sugoigaku/gaku-site/blob/a69de36/.github/workflows/deploy-static-web-app.yml" target="_blank" rel="noopener noreferrer">Release gates at the reviewed revision</a></div></article>
+              <article class="evidence-item"><span class="status">Maintenance</span><div><h3>Action-runtime warning addressed</h3><p>A deprecation warning led to checkout and setup-node updates from v4 to v5, with matching regression assertions. The application build stayed on Node.js 22.</p><p class="annotation">A concrete maintenance change, not outage recovery or a performance improvement.</p><a href="https://github.com/Sugoigaku/gaku-site/commit/a69de36" target="_blank" rel="noopener noreferrer">Change and regression assertions</a></div></article>
+            </div>
+          </section>
+          <section class="chapter" id="limits" aria-labelledby="limits-title">
+            <p class="eyebrow">05 / Risks &amp; next proof</p><h2 id="limits-title">What remains unresolved.</h2>
+            <div class="limit-note"><h3>Static does not mean failure-free.</h3><p>The owner-only MVP prioritizes low cost over additional availability investment. Bad releases, DNS or certificate issues, and hosting failures remain possible. A numerical downtime tolerance and recovery objective are not yet agreed.</p></div>
+            <div class="limit-note"><h3>The next useful proof is recovery.</h3><p>A proposed exercise would restore a known-good revision, validate its routes and assets, and record the recovery time and manual steps. It has not been run. Git history alone is not a tested recovery mechanism.</p></div>
+            <details><summary>What would trigger more investment? <span class="status unproven">Proposed</span></summary><div class="detail-body"><ul><li><strong>External users depend on the site:</strong> agree availability and recovery targets, then choose checks and hosting guarantees to match.</li><li><strong>Usage or spend approaches the budget:</strong> inspect the actual bill and service limits before changing tiers or providers.</li><li><strong>Publishing becomes frequent:</strong> add PR validation and test a selective publication helper against the review boundary.</li><li><strong>A feature needs private state:</strong> define security and data requirements before adding an API or database.</li></ul></div></details>
+            <p class="annotation">This project demonstrates small-system delivery and scope decisions. It does not demonstrate enterprise scale, multi-team negotiation, or production incident management.</p>
+          </section>
+        </div>
+      </div>
+      <section class="closing" aria-label="Project conclusion"><div class="shell"><p>The VM answered my first request. Reconsidering it when HTTPS changed the requirements was the more important architecture decision.</p><a class="text-link" href="#projects"><img class="icon" src="assets/arrow-left.svg" alt="" width="17" height="17">Back to projects</a></div></section>
+    </div>
+  </main>
+  <footer><div class="shell"><span>Gaku Chen / Selected work</span><span>Case-study review / September 13, 2026</span></div></footer>
+  <script>
+    const projectsView = document.getElementById('projects-view');
+    const caseView = document.getElementById('case-view');
+    const sectionSelect = document.getElementById('section-select');
+    const chapters = [...document.querySelectorAll('.chapter')];
+    const sectionLinks = [...document.querySelectorAll('.section-nav a:not(.back-link)')];
+    const decisionRecords = [...document.querySelectorAll('[data-section]')];
+    const caseTargets = new Set(['overview', ...chapters.map(chapter => chapter.id), ...decisionRecords.map(record => record.id)]);
+    let currentView = '';
+
+    function setSection(sectionId) {
+      sectionSelect.value = sectionId;
+      for (const link of sectionLinks) {
+        if (link.hash === '#' + sectionId) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      }
+    }
+
+    function showRoute() {
+      const targetId = location.hash.slice(1);
+      if (targetId === 'main-content') {
+        document.getElementById('main-content').focus();
+        return;
+      }
+      const isCase = caseTargets.has(targetId);
+      const nextView = isCase ? 'case' : 'projects';
+      projectsView.hidden = isCase;
+      caseView.hidden = !isCase;
+      document.title = isCase ? 'Gaku Personal Website | Decisions & Evidence' : 'Gaku | Selected Projects';
+      for (const link of document.querySelectorAll('[data-view]')) {
+        if (link.dataset.view === nextView) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      }
+      if (nextView !== currentView) {
+        if (currentView) document.getElementById(isCase ? 'case-title' : 'projects-title').focus({ preventScroll: true });
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      currentView = nextView;
+      if (isCase) {
+        const target = document.getElementById(targetId);
+        setSection(targetId === 'overview' ? 'brief' : target.dataset.section || targetId);
+        requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant', block: 'start' }));
+      }
+    }
+
+    sectionSelect.addEventListener('change', () => { location.hash = sectionSelect.value; });
+    window.addEventListener('hashchange', showRoute);
+    let scrollScheduled = false;
+    window.addEventListener('scroll', () => {
+      if (caseView.hidden || scrollScheduled) return;
+      scrollScheduled = true;
+      requestAnimationFrame(() => {
+        const threshold = window.innerWidth <= 760 ? 175 : 150;
+        const active = [...chapters].reverse().find(chapter => chapter.getBoundingClientRect().top <= threshold) || chapters[0];
+        setSection(active.id);
+        scrollScheduled = false;
+      });
+    }, { passive: true });
+    showRoute();
+  </script>
+</body>
+</html>
