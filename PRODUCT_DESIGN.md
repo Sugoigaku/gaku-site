@@ -2,7 +2,9 @@
 
 ## 1. Product Overview
 
-An English-only personal website that presents Gaku's professional identity in a clear, credible, and approachable way. The MVP will be a focused single-page experience rather than a collection of thin or unfinished pages.
+An English-only personal website that presents Gaku's professional identity in a clear, credible, and approachable way. The original MVP is a focused single-page profile. The approved next phase adds a project portfolio that demonstrates how Gaku defines, builds, and delivers a solution.
+
+The original MVP scope below remains the baseline. Section 11 records the approved portfolio design; its integration into the live site is not yet implemented.
 
 The site should help a visitor answer three questions quickly:
 
@@ -16,6 +18,7 @@ The site should help a visitor answer three questions quickly:
 - Communicate Gaku's background, focus, and strengths within a short visit.
 - Provide direct paths to contact details and professional profiles.
 - Create a lightweight foundation that can later support articles or projects.
+- Demonstrate Solution Architect and Developer capabilities through real projects: explain the product, delivery approach, important decisions, and future improvements.
 
 ## 3. Target Audience
 
@@ -79,7 +82,7 @@ The website will use one continuous page with simple navigation to four sections
 
 ## 7. Out of Scope for MVP
 
-- Project portfolio.
+- Project portfolio was outside the original MVP; it is now approved as the next phase described in Section 11.
 - Investment notes, search, filtering, or content management system.
 - Contact form or backend service.
 - User accounts, comments, public interaction, newsletter, or database.
@@ -105,10 +108,13 @@ The website repository will contain only approved public copies. The original Ob
 
 ## 9. Technical Direction
 
-- Build as a static Astro site.
+- Build as a static Astro site with TypeScript, CSS, and Markdown content collections.
 - Keep profile content in simple local data or components for easy editing.
-- Deploy through a static hosting provider such as GitHub Pages, Cloudflare Pages, or Vercel.
-- Add automated checks for build success, formatting, and critical page behavior before deployment.
+- Use Git and GitHub for version control with focused commits. The portfolio work is isolated on a feature branch.
+- Host on Azure Static Web Apps Free with a custom HTTPS domain. Retain the initial Linux VM and Nginx deployment as a separate infrastructure reference.
+- Use Bicep for resource provisioning, separate from application deployment.
+- GitHub Actions runs installation, build, tests, and Astro/TypeScript checks before uploading the static output on main updates or manual dispatch. Deployment credentials stay in GitHub Secrets.
+- Keep pull-request gates, post-deployment checks, and recovery rehearsal as planned improvements, not claims about existing capabilities.
 
 ## 10. MVP Completion Criteria
 
@@ -119,3 +125,60 @@ The MVP is ready when:
 - The page is readable and visually coherent on common mobile and desktop sizes.
 - Accessibility and metadata checks pass.
 - The production build completes successfully and contains no credentials or private information.
+
+## 11. Approved Project Portfolio
+
+### Status and Reference
+
+Approved on September 13, 2026. Use the simplified [portfolio demo](demos/project-portfolio-v2.html) as the design reference. This approval selects the design; the demo remains separate from the production routes until integration is implemented and validated.
+
+### Visitor Experience
+
+- Add a Projects preview to the homepage before Contact, with a navigation link to the section.
+- Start with Gaku Personal Website as the first project. Use its real screenshot, a plain-language purpose, key technologies, and links to the case study and source.
+- Open a dedicated case-study page with the project name, what it does, its current functionality, the technology stack, and live-site/source links visible near the top.
+- State Gaku's role in scope, architecture decisions, and review separately from GitHub Copilot's implementation assistance.
+- Use three sections in this order, with desktop section navigation and a mobile section selector. Support direct section links, browser history, and a clear return to Projects.
+
+### 1. Project & Delivery
+
+Explain what was built before discussing decisions. For the first project:
+
+- **Purpose:** an English professional profile and selected public technical articles, with responsive pages and HTTPS. No application backend or database.
+- **Application and content:** Astro, TypeScript, CSS, and reviewed Markdown copies; the private Obsidian vault is not a build input.
+- **Version control:** Git and GitHub, focused commits, initial work on main, and the portfolio revision on a feature branch.
+- **CI/CD:** GitHub Actions validates the build, tests, and types before uploading dist. Show the short main -> build and validate -> deploy flow.
+- **Infrastructure:** Azure Static Web Apps Free, custom-domain HTTPS, and reusable Bicep; distinguish provisioning from application deployment and mention the retained VM reference.
+
+Use a compact technical specification and one delivery diagram. Link to the workflow and infrastructure source rather than reproducing implementation details.
+
+### 2. Key Decisions
+
+Present three short decisions, each with **My choice / Why / Tradeoff** and a relevant source link:
+
+1. **Keep the MVP small and static:** publish a useful English profile and selected articles without adding accounts or a database. Content changes require a rebuild.
+2. **Publish reviewed copies, not the vault:** protect private and internal material, accepting manual duplication and possible content drift at the current scale.
+3. **Move from a VM to managed hosting:** Gaku initially requested a Linux VM, then approved Copilot's Static Web Apps proposal after asking about HTTPS and cost. Reduce server maintenance while accepting less control and platform limits.
+
+The current budget is $0-20 per month with a preference to minimize spending. This was clarified during the portfolio review, not recorded as an original quantified requirement. Free hosting does not mean a measured zero total bill; domain renewal is separate.
+
+### 3. What's Next
+
+Pair each future problem with an improvement, clearly labeled as planned:
+
+- **Bad releases:** add pull-request and post-deployment route checks; rehearse restoring a known-good revision.
+- **DNS, TLS, or hosting failure:** add lightweight availability checks and agree recovery targets before others depend on the site.
+- **More articles:** introduce selective publishing assistance when copying becomes a burden, retaining human privacy review.
+- **More traffic or features:** review actual cost and service limits before upgrading; add an API or database only for a demonstrated private-state requirement.
+
+The first priority is release validation and a tested recovery path. Recovery has not been rehearsed and an uptime target is not yet set.
+
+### Content and Acceptance Criteria
+
+- Lead with the project, not an essay about architectural judgment. Retain the existing visual language and real project imagery.
+- Keep the first project's preview and case study within the approved demo's 950-word budget, with each decision no longer than 110 words.
+- Keep core content visible without accordions. Omit a separate evidence chapter, repeated caveats, and lengthy alternative comparisons.
+- Distinguish implemented behavior, personal decisions, AI assistance, and planned work. Do not invent performance, savings, uptime, or recovery results.
+- Preserve the existing profile, knowledge pages, and publication-review boundary during integration.
+- Before release, verify project and source links, keyboard navigation, direct links, browser history, mobile section selection, asset loading, and desktop/mobile layouts without overflow.
+- Build, relevant automated tests, and Astro/TypeScript diagnostics must pass before deployment. Design approval alone does not satisfy these release criteria.

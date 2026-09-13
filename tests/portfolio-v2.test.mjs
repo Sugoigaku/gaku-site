@@ -101,3 +101,20 @@ test('v2 reuses existing local images and its stylesheet', async () => {
     assert.ok(content.length > 0);
   }
 });
+
+test('product design records the approved portfolio without claiming production integration', async () => {
+  const design = await readFile(new URL('../PRODUCT_DESIGN.md', import.meta.url), 'utf8');
+  assert.match(design, /\[portfolio demo\]\(demos\/project-portfolio-v2\.html\)/);
+  assert.match(design, /integration into the live site is not yet implemented/);
+  const headings = ['### 1. Project & Delivery', '### 2. Key Decisions', "### 3. What's Next"];
+  let previousPosition = -1;
+  for (const heading of headings) {
+    const position = design.indexOf(heading);
+    assert.ok(position > previousPosition, `Missing or out-of-order section: ${heading}`);
+    previousPosition = position;
+  }
+  assert.match(design, /My choice \/ Why \/ Tradeoff/);
+  assert.match(design, /950-word budget/);
+  assert.match(design, /clearly labeled as planned/);
+  assert.match(design, /GitHub Copilot's implementation assistance/);
+});
