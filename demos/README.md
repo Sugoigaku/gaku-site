@@ -4,16 +4,16 @@ Open `project-portfolio-v2.html` directly in a browser for the current proposal.
 No build or server is needed. Keep the adjacent CSS and assets in place.
 The original `project-portfolio.html` remains unchanged for comparison.
 
-V2 leads with ownership, constraints, outcomes, and evidence limits. Three
-decision records include consequences, tradeoffs, reversal conditions, and
-retrospective alternatives. Runtime and deployment diagrams show separate
-dependencies and the credential boundary. Evidence summaries explain what
-each linked artifact proves and what it does not.
+The revised V2 follows three sections: project and delivery, key decisions,
+and future risks and improvements. The opening explains the product and stack;
+a compact specification covers Git, CI/CD, and infrastructure. Each of the
+three decisions states the owner's choice, reason, and tradeoff with a source
+link. The full preview and case study stay within a 950-word copy budget.
 
 The Projects preview links to the case study in the same file. Section and
 decision links support browser history and direct fragment navigation; mobile
-uses a section selector. Alternative comparisons and proposed diagnostics expand
-independently. Use `#overview` to open the case study directly.
+uses a section selector. All case-study content is visible without expanding
+accordions. Use `#overview` to open the case study directly.
 
 ## Content Provenance
 
@@ -53,6 +53,6 @@ npm run check
 ```
 
 Browser validation should cover preview-to-case navigation, back/forward,
-direct decision links, section selection, keyboard-operated details, local asset
+direct decision links, keyboard navigation, section selection, local asset
 loading, and desktop/mobile overflow. Any temporary loopback server is only for
 browser-tool validation and is not required to open the HTML normally.

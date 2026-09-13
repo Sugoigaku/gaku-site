@@ -6,13 +6,19 @@ import { Script } from 'node:vm';
 const html = await readFile(new URL('../demos/project-portfolio-v2.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../demos/portfolio-v2.css', import.meta.url), 'utf8');
 
-test('portfolio v2 exposes two views with ownership and evidence near the top', () => {
-  for (const id of ['projects-view', 'case-view', 'overview', 'brief', 'decisions', 'architecture', 'evidence', 'limits']) {
+test('portfolio explains the project and delivery before decisions and next steps', () => {
+  for (const id of ['projects-view', 'case-view', 'overview', 'build', 'decisions', 'next']) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(html, /id="case-view" hidden/);
   assert.match(html, /href="#overview">View case study/);
-  assert.ok(html.indexOf('Results and evidence limits') < html.indexOf('id="brief"'));
+  assert.equal([...html.matchAll(/class="chapter"/g)].length, 3);
+  assert.ok(html.indexOf('id="build"') < html.indexOf('id="decisions"'));
+  assert.ok(html.indexOf('id="decisions"') < html.indexOf('id="next"'));
+  const build = html.split('id="build"')[1].split('id="decisions"')[0];
+  for (const topic of ['Astro', 'TypeScript', 'Markdown', 'Git', 'GitHub Actions', 'Bicep', 'Static Web Apps']) {
+    assert.ok(build.includes(topic), `Missing project technology: ${topic}`);
+  }
   assert.match(html, /<html lang="en">/);
   assert.match(html, /name="robots" content="noindex, nofollow"/);
 });
@@ -28,39 +34,49 @@ test('every internal v2 link and section selector value resolves to a unique tar
   }
 });
 
-test('three decisions include tradeoffs, reversal conditions, evidence and retrospective alternatives', () => {
+test('three concise decisions explain the owner choice, reason and tradeoff', () => {
   const records = [...html.matchAll(/<article class="decision-record"[\s\S]*?<\/article>/g)];
   assert.equal(records.length, 3);
   for (const [record] of records) {
-    for (const label of ['Requirement', 'Consequence', 'Tradeoff', 'Reconsider if', 'Evidence', 'Retrospective']) {
+    for (const label of ['My choice', 'Why', 'Tradeoff']) {
       assert.ok(record.includes(label), `Missing ${label}`);
     }
     assert.match(record, /data-section="decisions"/);
     assert.match(record, /https:\/\/github\.com\/Sugoigaku\/gaku-site\/commit\//);
+    assert.ok(record.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).length <= 110);
   }
 });
 
-test('new owner constraints and evidence limits are not presented as historical measurements', () => {
+test('project copy stays concise without hiding content in accordions', () => {
+  const body = html.split('<body>')[1].split('<script>')[0];
+  const words = body.replace(/<[^>]*>/g, ' ').trim().split(/\s+/);
+  assert.ok(words.length <= 950, `Copy exceeds the 950-word budget: ${words.length}`);
+  assert.doesNotMatch(body, /<details\b/);
+  assert.match(html, /A professional profile and a public library of technical articles/);
+  assert.match(html, /aria-label="Technology stack"/);
+});
+
+test('owner contribution and budget remain accurate after shortening', () => {
   assert.match(html, /\$0-20 \/ month; minimize spend/);
-  assert.match(html, /Owner-only MVP/);
-  assert.match(html, /not presented as quantified requirements recorded before the original build/);
-  assert.match(html, /not an independently hand-coded implementation/);
-  assert.match(html, /no head-to-head benchmark or weighted selection study/);
-  assert.match(html, /not a measured total-cost result/);
-  assert.match(html, /No new production measurements or recovery exercises were performed/);
-  assert.match(html, /downtime tolerance and recovery objective are not yet agreed/);
+  assert.match(html, /Current budget/);
+  assert.match(html, /Scope, architecture decisions &amp; review/);
+  assert.match(html, /GitHub Copilot: code, tests &amp; deployment/);
+  assert.match(html, /Copilot proposed Astro/);
+  assert.match(html, /Domain renewal is separate; Free hosting is not a measured total bill/);
   assert.doesNotMatch(html, /<strong>\$0<\/strong>/);
 });
 
-test('architecture and risks distinguish deployment, runtime, and untested recovery', () => {
-  assert.match(html, /DNS does not proxy page content/);
-  assert.match(html, /Separate browser requests load Google Fonts/);
-  assert.match(html, /Deployment credential boundary/);
-  assert.match(html, /not into public content or the visitor's browser/);
-  assert.match(html, /Feature branches do not trigger this production workflow/);
-  assert.match(html, /Passing source assertions is not end-to-end validation/);
-  assert.match(html, /Static does not mean failure-free/);
-  assert.match(html, /Git history alone is not a tested recovery mechanism/);
+test('delivery and future work distinguish current behavior from planned improvements', () => {
+  assert.match(html, /Initial work used main; this portfolio is isolated on a feature branch/);
+  assert.match(html, /Updates to main, or manual dispatch/);
+  assert.match(html, /deployment token stays in GitHub Secrets/);
+  assert.match(html, /application workflow deploys files separately/);
+  assert.match(html, /CI runs on releases, not on page requests/);
+  const next = html.split('id="next"')[1];
+  for (const topic of ['Planned work, not implemented', 'pull-request checks', 'DNS, TLS or hosting failure', 'selective publishing', 'costs and service limits', 'private state']) {
+    assert.ok(next.includes(topic), `Missing future concern: ${topic}`);
+  }
+  assert.match(next, /Recovery has not been rehearsed; an uptime target is not yet set/);
 });
 
 test('v2 is file-compatible, accessible in structure, and uses safe external links', () => {
