@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gaku's personal website: an engineering case study in requirements, architecture, iterative delivery, and cloud operations.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Gaku | Project Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #171816;
+      --paper: #f5f4ef;
+      --white: #fff;
+      --lime: #c7ff45;
+      --coral: #b84225;
+      --coral-light: #ff6b4a;
+      --muted: #64675f;
+      --line: #d7d9d0;
+      --wash: #e9ece3;
+      --green: #345516;
+      --display: 'Space Grotesk', sans-serif;
+      --body: 'Manrope', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 15px/1.75 var(--body); letter-spacing: 0; }
+    a { color: inherit; text-underline-offset: 4px; }
+    button, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--coral); outline-offset: 5px; }
+    h1, h2, h3, h4 { font-family: var(--display); line-height: 1.2; margin: 0 0 18px; font-weight: 500; overflow-wrap: break-word; }
+    p { margin: 0 0 18px; }
+    h1 { font-size: 54px; }
+    h2 { font-size: 34px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 18px; }
+    img { display: block; width: 100%; height: auto; }
+    figure { margin: 0; }
+    .shell { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
+    .skip { position: fixed; top: -80px; left: 24px; padding: 10px; background: var(--lime); z-index: 100; }
+    .skip:focus { top: 10px; }
+    .header { position: sticky; top: 0; z-index: 20; background: rgba(245,244,239,.97); border-bottom: 1px solid var(--line); }
+    .header-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font: 600 23px var(--display); text-decoration: none; }
+    .brand span { color: var(--coral); }
+    .top-nav { display: flex; align-items: center; gap: 30px; }
+    .top-nav a { text-decoration: none; font: 12px var(--mono); padding: 12px 0; border-bottom: 2px solid transparent; }
+    .top-nav a:hover, .top-nav a[aria-current="page"] { border-color: var(--coral); }
+    .eyebrow { color: var(--coral); font: 12px/1.6 var(--mono); text-transform: uppercase; margin-bottom: 18px; }
+    .muted { color: var(--muted); }
+    .lead { font-size: 18px; max-width: 720px; color: #4c5147; }
+    .icon { width: 17px; height: 17px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; background: var(--lime); color: var(--ink); border: 1px solid var(--lime); border-radius: 4px; padding: 13px 20px; min-height: 48px; text-decoration: none; font: 500 12px/1.5 var(--mono); }
+    .button:hover { background: #b8ed35; }
+    .text-link { display: inline-flex; gap: 8px; align-items: center; font: 12px/1.5 var(--mono); text-decoration: none; min-height: 44px; }
+    .text-link:hover { text-decoration: underline; }
+    .status { display: inline-flex; align-items: center; gap: 7px; font: 11px/1.6 var(--mono); color: var(--green); white-space: nowrap; }
+    .status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #547d24; }
+    .status.planned { color: var(--coral); }
+    .status.planned::before { border: 1px solid var(--coral); background: transparent; }
+    .preview { padding: 62px 0 72px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 36px; }
+    .section-heading h1 { font-size: 44px; margin-bottom: 0; }
+    .section-heading .muted { font: 12px var(--mono); }
+    .project-preview { display: grid; grid-template-columns: 1.15fr 1fr; gap: 46px; align-items: center; border-top: 1px solid var(--line); padding-top: 30px; }
+    .project-image { display: block; background: #20241f; overflow: hidden; border-radius: 4px; border: 1px solid #d0d3c8; }
+    .project-image img { aspect-ratio: 1440 / 1000; object-fit: cover; object-position: top; transition: transform 240ms ease; }
+    .project-image:hover img { transform: scale(1.015); }
+    .preview-copy h2 { font-size: 36px; margin: 18px 0; }
+    .preview-copy > p { color: #4c5147; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 18px 0 24px; font: 11px/1.7 var(--mono); color: var(--muted); }
+    .preview-insight { display: flex; align-items: baseline; gap: 12px; border-top: 1px solid var(--line); margin-top: 28px; padding-top: 22px; font-size: 13px; }
+    .preview-insight span { font: 11px var(--mono); color: var(--coral); white-space: nowrap; }
+    .contact-band { border-top: 1px solid var(--line); padding: 40px 0; }
+    .contact-band .shell { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .contact-band h2 { font-size: 28px; margin: 0; }
+    .case-intro { padding: 32px 0 38px; }
+    .breadcrumbs { font: 11px var(--mono); display: flex; align-items: center; gap: 12px; color: var(--muted); margin-bottom: 36px; }
+    .breadcrumbs a { min-height: 32px; display: inline-flex; align-items: center; }
+    .case-title-row { display: flex; justify-content: space-between; gap: 32px; align-items: flex-start; }
+    .case-title-row .status { margin-top: 8px; }
+    .case-intro h1 { max-width: 880px; margin-bottom: 20px; }
+    .facts { display: grid; grid-template-columns: 1.3fr 1fr 1fr .8fr; gap: 24px; border-top: 1px solid var(--line); padding-top: 24px; margin: 32px 0 0; }
+    .facts dt { color: var(--muted); font: 10px/1.6 var(--mono); text-transform: uppercase; margin-bottom: 9px; }
+    .facts dd { margin: 0; font-size: 13px; }
+    .showcase-band { border-block: 1px solid var(--line); background: var(--wash); padding: 30px 0 0; overflow: hidden; }
+    .showcase { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 48px; align-items: center; }
+    .showcase figure { align-self: end; border: 1px solid #ccd1c0; border-bottom: 0; border-radius: 5px 5px 0 0; overflow: hidden; }
+    .showcase img { aspect-ratio: 1440 / 830; object-fit: cover; object-position: top; }
+    .showcase-copy { padding-bottom: 30px; }
+    .showcase-copy h2 { font-size: 26px; }
+    .showcase-copy p { font-size: 13px; color: #4c5147; }
+    .outcome { font: 12px/1.75 var(--mono); margin-top: 24px; }
+    .outcome strong { font-size: 38px; font-family: var(--display); display: block; font-weight: 500; }
+    .outcome small { display: block; color: var(--muted); font: 10px/1.6 var(--mono); max-width: 310px; }
+    .case-grid { display: grid; grid-template-columns: 190px minmax(0,1fr); gap: 70px; padding-block: 60px; }
+    .chapter-nav { position: sticky; top: 108px; align-self: start; }
+    .chapter-nav > p { font: 10px var(--mono); text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    .chapter-nav a { display: flex; gap: 14px; text-decoration: none; padding: 12px 10px; border-left: 2px solid var(--line); font-size: 13px; }
+    .chapter-nav a span { color: var(--muted); font: 11px/1.9 var(--mono); }
+    .chapter-nav a[aria-current="location"] { border-color: var(--coral); background: #eceee6; font-weight: 700; }
+    .chapter-nav a:hover { background: #eceee6; }
+    .chapter-nav .source-link { margin-top: 28px; border: 0; padding-left: 0; font: 11px var(--mono); }
+    .mobile-chapters { display: none; }
+    .chapter { padding: 0 0 54px; margin-bottom: 50px; border-bottom: 1px solid var(--line); scroll-margin-top: 20px; }
+    .chapter:last-child { margin-bottom: 0; padding-bottom: 0; border: 0; }
+    .chapter > .eyebrow { margin-bottom: 12px; }
+    .chapter > h2 { margin-bottom: 20px; }
+    .chapter > p { max-width: 780px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 30px 0; }
+    .two-col h3 { font-size: 18px; }
+    ul.clean { padding-left: 18px; margin: 0; }
+    ul.clean li { padding: 4px 0; font-size: 13px; }
+    .requirement-list { margin: 28px 0; }
+    .requirement-row { display: grid; grid-template-columns: 130px 1fr; gap: 24px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+    .requirement-row dt { font: 11px/1.8 var(--mono); color: var(--muted); }
+    .requirement-row dd { margin: 0; font-size: 13px; }
+    .decision { margin: 32px 0; border-left: 3px solid var(--coral-light); padding: 4px 0 4px 22px; }
+    .decision > .eyebrow { margin-bottom: 12px; }
+    .decision h3 { font-size: 23px; }
+    .decision dl { margin: 0; }
+    .decision dl > div { display: grid; grid-template-columns: 88px minmax(0,1fr); gap: 16px; margin: 9px 0; }
+    .decision dt { font: 10px/1.9 var(--mono); text-transform: uppercase; color: var(--muted); }
+    .decision dd { margin: 0; font-size: 13px; }
+    .table-scroll { overflow-x: auto; margin: 30px 0; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
+    caption { text-align: left; font: 18px var(--display); padding-bottom: 16px; }
+    th { font: 10px/1.7 var(--mono); text-transform: uppercase; color: var(--muted); }
+    th, td { padding: 15px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    td:first-child { font-weight: 700; }
+    tr.selected { background: #e8efdc; }
+    .diagram { margin: 30px 0; border-block: 1px solid var(--line); padding: 22px 0; }
+    .diagram figcaption { font: 11px/1.8 var(--mono); margin-bottom: 22px; color: var(--muted); }
+    .flow { display: flex; align-items: stretch; gap: 20px; margin: 0; padding: 0; list-style: none; }
+    .flow li { position: relative; flex: 1; min-width: 0; padding: 12px; background: var(--wash); font-size: 12px; }
+    .flow li:not(:last-child)::after { content: '\2192'; position: absolute; right: -17px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .flow strong { display: block; font-weight: 700; margin-bottom: 7px; }
+    .flow span { color: #565c4e; font-size: 10px; display: block; }
+    .flow .destination { background: var(--lime); }
+    .annotation { font-size: 12px; color: var(--muted); margin: 16px 0 0; }
+    .timeline { list-style: none; padding: 0; margin: 30px 0; }
+    .timeline li { display: grid; grid-template-columns: 70px 1fr auto; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+    .timeline .milestone { color: var(--coral); font: 11px var(--mono); }
+    .timeline h3 { font-size: 17px; margin-bottom: 6px; }
+    .timeline p { color: var(--muted); font-size: 12px; margin: 0; }
+    .commit { font: 10px var(--mono); }
+    .evidence { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 24px; }
+    .evidence a { font: 11px/1.7 var(--mono); min-height: 32px; display: inline-flex; align-items: center; }
+    .small-label { font: 10px var(--mono); text-transform: uppercase; color: var(--muted); }
+    .code-flow { background: var(--ink); color: #fff; padding: 22px 24px; margin: 28px 0; font: 12px/2 var(--mono); border-radius: 4px; overflow-wrap: anywhere; }
+    .code-flow .pass { color: var(--lime); }
+    .code-flow .dim { color: #b9c0b0; }
+    .delivery-comparison { margin: 32px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+    .delivery-option { border-top: 3px solid var(--line); padding-top: 20px; }
+    .delivery-option.current { border-color: #739e28; }
+    .delivery-option h3 { margin-top: 16px; }
+    .delivery-option p { font-size: 13px; }
+    .delivery-option .cost { font: 500 24px var(--display); margin-bottom: 12px; }
+    .delivery-option .cost span { color: var(--muted); font: 10px var(--mono); }
+    details { border-bottom: 1px solid var(--line); }
+    summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto 16px; align-items: center; gap: 16px; padding: 20px 0; font: 17px/1.4 var(--display); }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; color: var(--muted); font: 20px var(--mono); }
+    details[open] summary::after { content: '-'; }
+    .risk-body { font-size: 13px; padding: 0 0 20px; }
+    .risk-body p:last-child { margin-bottom: 0; }
+    .closing { border-top: 1px solid var(--line); background: var(--wash); padding: 40px 0; }
+    .closing .shell { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .closing p { max-width: 620px; margin: 0; font-size: 16px; }
+    footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font: 10px/1.8 var(--mono); }
+    footer .shell { display: flex; justify-content: space-between; gap: 16px; }
+    .reveal { animation: enter 350ms ease both; }
+    @keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @media (min-width: 1500px) { .showcase { grid-template-columns: minmax(0,1fr) 400px; } }
+    @media (max-width: 1000px) {
+      .case-grid { grid-template-columns: 150px minmax(0,1fr); gap: 32px; }
+      .showcase { grid-template-columns: 1fr 280px; gap: 28px; }
+      .project-preview { gap: 28px; }
+      .preview-copy h2 { font-size: 30px; }
+      .facts { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 760px) {
+      html { scroll-padding-top: 142px; }
+      .shell { width: calc(100% - 40px); }
+      .header-inner { min-height: 66px; gap: 14px; }
+      .top-nav { gap: 18px; }
+      .top-nav a { font-size: 10px; }
+      .top-nav .external-nav { display: none; }
+      .preview { padding: 36px 0 48px; }
+      .section-heading { align-items: start; margin-bottom: 26px; }
+      .section-heading h1 { font-size: 36px; }
+      .section-heading .muted { font-size: 10px; margin-top: 12px; }
+      .project-preview { grid-template-columns: 1fr; gap: 24px; padding-top: 22px; }
+      .preview-copy h2 { font-size: 30px; }
+      .preview-insight { margin-top: 20px; }
+      .case-intro { padding-top: 22px; }
+      .breadcrumbs { margin-bottom: 26px; }
+      .case-title-row { flex-direction: column; gap: 0; }
+      .case-title-row .status { margin: 0 0 18px; }
+      h1 { font-size: 38px; }
+      h2 { font-size: 28px; }
+      .lead { font-size: 16px; }
+      .facts { gap: 22px; margin-top: 26px; }
+      .showcase { grid-template-columns: 1fr; gap: 0; }
+      .showcase-band { padding-top: 22px; }
+      .showcase figure { border-bottom: 1px solid #ccd1c0; border-radius: 4px; }
+      .showcase-copy { padding: 26px 0; }
+      .showcase-copy h2 { font-size: 24px; }
+      .outcome { margin-top: 16px; }
+      .outcome strong { display: inline; font-size: 28px; margin-right: 8px; }
+      .outcome small { max-width: none; margin-top: 6px; }
+      .case-grid { display: block; padding-top: 34px; }
+      .chapter-nav { display: none; }
+      .mobile-chapters { display: flex; align-items: center; gap: 18px; background: var(--paper); border-bottom: 1px solid var(--line); position: sticky; top: 67px; z-index: 10; padding: 10px 20px; }
+      .mobile-chapters label { font: 10px var(--mono); color: var(--muted); }
+      .mobile-chapters select { flex: 1; min-width: 0; height: 40px; color: var(--ink); border: 1px solid var(--line); border-radius: 4px; background: var(--white); padding: 8px; font-size: 13px; }
+      .chapter { padding-bottom: 38px; margin-bottom: 36px; scroll-margin-top: 0; }
+      .two-col { gap: 22px; }
+      .requirement-row { grid-template-columns: 100px 1fr; gap: 16px; }
+      .flow { flex-direction: column; gap: 22px; }
+      .flow li:not(:last-child)::after { content: '\2193'; top: auto; bottom: -22px; right: 50%; transform: none; }
+      .flow li { padding: 12px 16px; }
+      .flow strong { margin-bottom: 2px; }
+      .timeline li { grid-template-columns: 48px 1fr; gap: 14px; }
+      .timeline .commit { grid-column: 2; }
+      .delivery-comparison { gap: 22px; }
+      th, td { padding: 12px 10px; }
+      .contact-band .shell, .closing .shell { align-items: flex-start; flex-direction: column; gap: 20px; }
+      .decision { padding-left: 16px; }
+      .decision dl > div { grid-template-columns: 72px 1fr; gap: 10px; }
+      summary { font-size: 16px; grid-template-columns: 1fr 16px; gap: 8px; }
+      summary .status { grid-row: 2; font-size: 10px; }
+      summary::after { grid-column: 2; grid-row: 1; }
+    }
+    @media (max-width: 420px) {
+      .two-col, .delivery-comparison { grid-template-columns: 1fr; }
+      .facts { gap: 20px 14px; }
+      .facts dd { font-size: 12px; }
+      .section-heading .muted { max-width: 90px; line-height: 1.8; text-align: right; }
+      .table-scroll table { min-width: 510px; }
+      footer .shell { flex-direction: column; gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main-content">Skip to content</a>
+  <header class="header">
+    <div class="shell header-inner">
+      <a class="brand" href="#projects" aria-label="Gaku projects">Gaku<span>.</span></a>
+      <nav class="top-nav" aria-label="Main navigation">
+        <a href="#projects" data-view-link="projects" aria-current="page">Projects</a>
+        <a href="#overview" data-view-link="case-study">Case study</a>
+        <a href="https://www.gakuchen.com/knowledge/" class="external-nav">Knowledge</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content" tabindex="-1">
+    <div id="projects-view" class="reveal">
+      <section id="projects" class="preview shell" aria-labelledby="projects-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">03 / Selected work</p><h1 id="projects-title" tabindex="-1">Projects.</h1></div>
+          <span class="muted">From idea to production</span>
+        </div>
+        <article class="project-preview">
+          <a class="project-image" href="#overview" aria-label="View the Gaku Personal Website case study">
+            <img src="assets/gaku-site-desktop.png" alt="Gaku Chen's website, showing the professional introduction and beginning of the About section" width="1440" height="1000">
+          </a>
+          <div class="preview-copy">
+            <span class="status">Live &amp; evolving</span>
+            <h2>Gaku Personal Website</h2>
+            <p>A professional home and public knowledge library. Designed, built, and delivered as a lightweight cloud solution.</p>
+            <p>From a deliberately small MVP to managed HTTPS hosting: the decisions behind the product, the code, and the infrastructure.</p>
+            <div class="tags"><span>Astro / TypeScript</span><span>Azure / Bicep</span><span>GitHub Actions</span></div>
+            <div class="actions">
+              <a class="button" href="#overview">View case study <img class="icon" src="assets/arrow-right.svg" alt="" width="17" height="17"></a>
+              <a class="text-link" href="https://github.com/Sugoigaku/gaku-site" target="_blank" rel="noopener noreferrer">Source <img class="icon" src="assets/arrow-up-right.svg" alt="" width="17" height="17"></a>
+            </div>
+            <div class="preview-insight"><span>Key decision</span><div>Less infrastructure. More room to build.</div></div>
+          </div>
+        </article>
+      </section>
+      <section class="contact-band" aria-labelledby="contact-title"><div class="shell"><div><p class="eyebrow">04 / Contact</p><h2 id="contact-title">Let's connect.</h2></div><a class="text-link" href="https://www.gakuchen.com/#contact">Start a conversation <img class="icon" src="assets/arrow-up-right.svg" alt="" width="17" height="17"></a></div></section>
+    </div>
+    <div id="case-study-view" hidden>
+      <section id="overview" class="case-intro shell" aria-labelledby="case-title">
+        <div class="breadcrumbs"><a href="#projects">Projects</a><span aria-hidden="true">/</span><span>Gaku Personal Website</span></div>
+        <div class="case-title-row"><p class="eyebrow">01 / Engineering case study</p><span class="status">Live &amp; evolving</span></div>
+        <h1 id="case-title" tabindex="-1">Gaku Personal Website</h1>
+        <p class="lead">A small website. An end-to-end engineering process.</p>
+        <p class="muted">Turning a professional profile into a public knowledge platform, with deliberate choices about scope, cost, delivery, and what not to build.</p>
+        <div class="actions">
+          <a class="button" href="https://www.gakuchen.com/" target="_blank" rel="noopener noreferrer">Visit live site <img class="icon" src="assets/arrow-up-right.svg" alt="" width="17" height="17"></a>
+          <a class="text-link" href="https://github.com/Sugoigaku/gaku-site" target="_blank" rel="noopener noreferrer">View source <img class="icon" src="assets/arrow-up-right.svg" alt="" width="17" height="17"></a>
+        </div>
+        <dl class="facts">
+          <div><dt>Project responsibilities</dt><dd>Product, architecture &amp; development</dd></div>
+          <div><dt>Application</dt><dd>Astro &amp; TypeScript</dd></div>
+          <div><dt>Infrastructure</dt><dd>Azure Static Web Apps &amp; Bicep</dd></div>
+          <div><dt>Delivery</dt><dd>GitHub Actions</dd></div>
+        </dl>
+      </section>
+      <div class="showcase-band"><div class="shell showcase">
+        <figure><img src="assets/gaku-site-desktop.png" alt="The deployed Gaku Chen website with its introduction, navigation, and professional profile" width="1440" height="1000"></figure>
+        <div class="showcase-copy"><p class="eyebrow">The result</p><h2>Content first.<br>Infrastructure second.</h2><p>A professional profile, two reviewed knowledge articles, and a custom HTTPS domain. No application server or database to operate.</p><div class="outcome"><strong>$0</strong> base hosting / month<small>Selected Free tier. Domain renewal is separate; usage limits and future requirements may change the cost.</small></div></div>
+      </div></div>
+      <div class="mobile-chapters"><label for="chapter-select">Chapter</label><select id="chapter-select"><option value="discover">01 / Discover</option><option value="decide">02 / Decide</option><option value="build">03 / Build</option><option value="deliver">04 / Deliver</option><option value="operate">05 / Operate &amp; evolve</option></select></div>
+      <div class="shell case-grid">
+        <nav class="chapter-nav" aria-label="Case study chapters">
+          <p>The engineering process</p>
+          <a href="#discover" aria-current="location"><span>01</span> Discover</a>
+          <a href="#decide"><span>02</span> Decide</a>
+          <a href="#build"><span>03</span> Build</a>
+          <a href="#deliver"><span>04</span> Deliver</a>
+          <a href="#operate"><span>05</span> Operate &amp; evolve</a>
+          <a class="source-link" href="#projects"><img class="icon" src="assets/arrow-left.svg" alt="" width="17" height="17"> All projects</a>
+        </nav>
+        <div>
+          <section class="chapter" id="discover" aria-labelledby="discover-title">
+            <p class="eyebrow">01 / Discover</p><h2 id="discover-title">Define the need.<br>Then narrow the scope.</h2>
+            <p>The starting point was not a technology stack. It was a visitor's three questions: who am I, what do I work on, and how can we connect?</p>
+            <dl class="requirement-list">
+              <div class="requirement-row"><dt>Audience</dt><dd>Engineering peers, recruiters, and people arriving from GitHub or technical discussions.</dd></div>
+              <div class="requirement-row"><dt>Product goal</dt><dd>A credible professional presence, with room for a curated public knowledge library.</dd></div>
+              <div class="requirement-row"><dt>Constraints</dt><dd>English only, low running cost, mobile readability, minimal maintenance, and no private information in public content.</dd></div>
+              <div class="requirement-row"><dt>Acceptance</dt><dd>A complete profile, working contact paths, readable layouts, published routes, and passing build and content checks.</dd></div>
+            </dl>
+            <div class="two-col"><div><h3>Build now</h3><ul class="clean"><li>Introduction, experience, and contact</li><li>Responsive and accessible navigation</li><li>Approved English knowledge articles</li><li>Public HTTPS hosting</li></ul></div><div><h3>Wait for a real need</h3><ul class="clean"><li>Accounts, comments, and a database</li><li>Search across a small content library</li><li>Automatic Obsidian synchronization</li><li>A portfolio before there were projects</li></ul></div></div>
+            <div class="decision"><p class="eyebrow">Decision 01 / Scope</p><h3>A complete small product beats empty sections.</h3><dl><div><dt>Need</dt><dd>Launch something useful without creating unnecessary maintenance.</dd></div><div><dt>Options</dt><dd>A multi-page platform, or a single professional profile with room to grow.</dd></div><div><dt>Decision</dt><dd>Start with the profile. Add knowledge publishing when actual articles were ready.</dd></div><div><dt>Tradeoff</dt><dd>Fewer features at launch, but each one serves a concrete purpose.</dd></div><div><dt>Evidence</dt><dd><a href="https://github.com/Sugoigaku/gaku-site/commit/29c9387" target="_blank" rel="noopener noreferrer">Initial MVP design</a></dd></div></dl></div>
+          </section>
+          <section class="chapter" id="decide" aria-labelledby="decide-title">
+            <p class="eyebrow">02 / Decide</p><h2 id="decide-title">Choose for the workload,<br>not the technology list.</h2>
+            <p>The content changes when I publish, not on every visitor request. Static generation removes a runtime dependency without taking away the features the site needs.</p>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Application architecture comparison"><table><caption>Application architecture</caption><thead><tr><th scope="col">Option</th><th scope="col">Value</th><th scope="col">Cost of ownership</th><th scope="col">Choice</th></tr></thead><tbody><tr class="selected"><td>Astro static site</td><td>HTML-first pages, typed Markdown, optional interactive islands</td><td>No application server; rebuild to publish</td><td>Selected</td></tr><tr><td>Client-rendered SPA</td><td>Rich stateful interactions</td><td>More client JavaScript than these pages need</td><td>Not needed</td></tr><tr><td>Server-backed app</td><td>Accounts and persistent private state</td><td>Runtime, data, security, and operating responsibilities</td><td>Deferred</td></tr></tbody></table></div>
+            <figure class="diagram"><figcaption>Application / build-time content, static delivery</figcaption><ol class="flow"><li><strong>Approved content</strong><span>Profile + Markdown</span></li><li><strong>Astro build</strong><span>HTML, CSS, small scripts</span></li><li><strong>Static hosting</strong><span>Azure Static Web Apps</span></li><li class="destination"><strong>Visitor</strong><span>Public HTTPS pages</span></li></ol></figure>
+            <div class="decision"><p class="eyebrow">Decision 02 / Publication boundary</p><h3>The private vault is not a build input.</h3><dl><div><dt>Need</dt><dd>Share selected technical knowledge without exposing private notes.</dd></div><div><dt>Options</dt><dd>Publish directly from Obsidian, or maintain reviewed public copies.</dd></div><div><dt>Decision</dt><dd>Select a note, review publication risks, approve the adaptation, then add it to the site.</dd></div><div><dt>Tradeoff</dt><dd>Manual copying is acceptable at this scale. Automation can wait until it becomes a real bottleneck.</dd></div><div><dt>Evidence</dt><dd><a href="https://github.com/Sugoigaku/gaku-site/commit/7dbff39" target="_blank" rel="noopener noreferrer">Publication review policy</a></dd></div></dl></div>
+            <p class="annotation">Review covers credentials, customer details, internal links, resource identifiers, copyright, and personal financial data. The original Obsidian notes remain unchanged.</p>
+            <div class="evidence"><span class="small-label">Architecture record</span><a href="https://github.com/Sugoigaku/gaku-site/blob/main/TECHNICAL_DESIGN.md" target="_blank" rel="noopener noreferrer">Technical design</a><a href="https://github.com/Sugoigaku/gaku-site/blob/main/src/content.config.ts" target="_blank" rel="noopener noreferrer">Content schema</a></div>
+          </section>
+          <section class="chapter" id="build" aria-labelledby="build-title">
+            <p class="eyebrow">03 / Build</p><h2 id="build-title">Small iterations.<br>Traceable decisions.</h2>
+            <p>I used AI-assisted development to turn requirements into a working site, reviewing the direction, inspecting the result, and refining the product in focused commits.</p>
+            <ol class="timeline">
+              <li><span class="milestone">01</span><div><h3>Define the product</h3><p>Scope and contribution rules before the implementation.</p></div><a class="commit" href="https://github.com/Sugoigaku/gaku-site/commit/29c9387" target="_blank" rel="noopener noreferrer" aria-label="View initial product design commit 29c9387">29c9387</a></li>
+              <li><span class="milestone">02</span><div><h3>Validate the experience</h3><p>A responsive profile with navigation and contact interactions.</p></div><a class="commit" href="https://github.com/Sugoigaku/gaku-site/commit/83fe9ce" target="_blank" rel="noopener noreferrer" aria-label="View website demo commit 83fe9ce">83fe9ce</a></li>
+              <li><span class="milestone">03</span><div><h3>Publish real knowledge</h3><p>Two reviewed articles, content metadata, and static routes.</p></div><a class="commit" href="https://github.com/Sugoigaku/gaku-site/commit/85594db" target="_blank" rel="noopener noreferrer" aria-label="View knowledge publishing commit 85594db">85594db</a></li>
+              <li><span class="milestone">04</span><div><h3>Codify infrastructure</h3><p>Reusable Bicep for the VM, then a separate managed-hosting path.</p></div><a class="commit" href="https://github.com/Sugoigaku/gaku-site/commit/0c96a4e" target="_blank" rel="noopener noreferrer" aria-label="View Static Web Apps infrastructure commit 0c96a4e">0c96a4e</a></li>
+              <li><span class="milestone">05</span><div><h3>Automate delivery</h3><p>Test, check, and deploy when main changes.</p></div><a class="commit" href="https://github.com/Sugoigaku/gaku-site/commit/430f7aa" target="_blank" rel="noopener noreferrer" aria-label="View automated deployment commit 430f7aa">430f7aa</a></li>
+            </ol>
+            <div class="two-col"><div><h3>AI-assisted, human-directed</h3><p class="muted">I set the requirements and made scope decisions. Copilot assisted with implementation, tests, and deployment work. Generated code still needed review and validation.</p></div><div><h3>Version control with intent</h3><p class="muted">The initial delivery progressed on main. New features now start on branches so iteration stays separate from production deployment.</p></div></div>
+            <h3>Quality gates in the repository</h3><div class="code-flow"><span class="dim">npm test</span><br><span class="pass">01</span> Build the static output<br><span class="pass">02</span> Test routes, content, metadata, and infrastructure expectations<br><span class="dim">npm run check</span><br><span class="pass">03</span> Check Astro and TypeScript diagnostics</div>
+            <p class="annotation">Credential-pattern tests are a baseline check, not a guarantee or a replacement for a dedicated secret scanner. Browser inspection remains part of UI validation.</p>
+            <div class="evidence"><span class="small-label">Evidence</span><a href="https://github.com/Sugoigaku/gaku-site/blob/main/tests/site.test.mjs" target="_blank" rel="noopener noreferrer">Site tests</a><a href="https://github.com/Sugoigaku/gaku-site/blob/main/tests/infra.test.mjs" target="_blank" rel="noopener noreferrer">Infrastructure tests</a></div>
+          </section>
+          <section class="chapter" id="deliver" aria-labelledby="deliver-title">
+            <p class="eyebrow">04 / Deliver</p><h2 id="deliver-title">A working VM.<br>A better-fitting managed service.</h2>
+            <p>The first deployment proved the site could run on a small Linux VM. The request for HTTPS prompted a second question: did this static workload need a server I had to maintain?</p>
+            <div class="delivery-comparison"><div class="delivery-option"><span class="small-label">Initial deployment / Retained as IaC</span><h3>Linux VM + Nginx</h3><p class="cost">Compute + disk + IP</p><p>Full infrastructure control and a useful IaaS implementation. But the operator owns patching, Nginx, TLS setup, availability, and monitoring.</p><ul class="clean"><li>VNet, subnet, NSG, NIC, and public IP</li><li>Ubuntu and cloud-init build</li><li>HTTP-only reference baseline</li></ul></div><div class="delivery-option current"><span class="status">Current production architecture</span><h3>Azure Static Web Apps</h3><p class="cost">$0 <span>base hosting / month</span></p><p>Static output with managed HTTPS. A better match for a small public site without an application backend.</p><ul class="clean"><li>Free tier; usage limits apply</li><li>Custom domain with managed TLS</li><li>No OS or Nginx maintenance</li></ul></div></div>
+            <div class="decision"><p class="eyebrow">Decision 03 / Total cost</p><h3>Optimize ownership, not just the VM size.</h3><dl><div><dt>Need</dt><dd>Serve public content over HTTPS at low cost.</dd></div><div><dt>Options</dt><dd>Add TLS and operations to the VM, or move the static build to managed hosting.</dd></div><div><dt>Decision</dt><dd>Move production to Static Web Apps; retain both reusable Bicep deployment options.</dd></div><div><dt>Tradeoff</dt><dd>Accept hosting limits and less server control. Domain renewal remains a separate expense.</dd></div><div><dt>Evidence</dt><dd><a href="https://github.com/Sugoigaku/gaku-site/tree/main/infra" target="_blank" rel="noopener noreferrer">Both infrastructure implementations</a></dd></div></dl></div>
+            <h3>Delivery, from branch to production</h3><figure class="diagram"><figcaption>Current application release path</figcaption><ol class="flow"><li><strong>Feature branch</strong><span>Local iteration + review</span></li><li><strong>Push to main</strong><span>Workflow trigger</span></li><li><strong>GitHub Actions</strong><span>npm ci / test / check</span></li><li class="destination"><strong>Deploy dist</strong><span>Production HTTPS site</span></li></ol><p class="annotation">Feature branches do not trigger this production workflow. Automated pull-request gates and previews are future improvements, not current guarantees.</p></figure>
+            <div class="two-col"><div><h3>Separate the responsibilities</h3><p class="muted">Bicep provisions the hosting resource. The application workflow uploads the built site. Infrastructure is not redeployed on every content edit.</p></div><div><h3>Keep deployment secrets out of Git</h3><p class="muted">The token is read from GitHub Actions secrets at runtime. The workflow uses read-only repository permissions and cancels superseded runs.</p></div></div>
+            <details><summary>A real maintenance iteration <span class="status">Implemented</span></summary><div class="risk-body"><p>A GitHub Actions warning identified a deprecated runtime in the checkout and setup-node actions. Updating those actions to v5 addressed that warning; the site's configured build runtime remained Node.js 22.</p><p>The lesson: maintain the pipeline as well as the application, and distinguish a deprecation warning from a deployment failure.</p><a href="https://github.com/Sugoigaku/gaku-site/commit/a69de36" target="_blank" rel="noopener noreferrer">View the maintenance commit</a></div></details>
+            <div class="evidence"><span class="small-label">Evidence</span><a href="https://github.com/Sugoigaku/gaku-site/blob/main/.github/workflows/deploy-static-web-app.yml" target="_blank" rel="noopener noreferrer">Deployment workflow</a><a href="https://github.com/Sugoigaku/gaku-site/actions" target="_blank" rel="noopener noreferrer">Workflow runs</a></div>
+          </section>
+          <section class="chapter" id="operate" aria-labelledby="operate-title">
+            <p class="eyebrow">05 / Operate &amp; evolve</p><h2 id="operate-title">Know what can fail.<br>Know when to change.</h2>
+            <p>Managed hosting reduces server work; it does not remove operational responsibility. The next improvements should follow observed risk and product demand.</p>
+            <details open><summary>Bad release or failed deployment <span class="status planned">Planned hardening</span></summary><div class="risk-body"><p><strong>Today:</strong> build and source checks run before upload. Git records the changes, but a successful upload alone does not prove the live experience works.</p><p><strong>Next:</strong> add post-deployment route checks, define rollback to a known-good revision, and document a recovery exercise.</p><p><strong>Trigger:</strong> before introducing a higher-impact workflow or increasing release frequency.</p></div></details>
+            <details><summary>Cost, traffic, and availability <span class="status planned">Planned monitoring</span></summary><div class="risk-body"><p><strong>Today:</strong> the selected Free tier fits the small static workload. Domain renewal is separate; no measured traffic or uptime claim is made here.</p><p><strong>Next:</strong> review usage against published limits, monitor public-route availability, and evaluate a paid plan when usage or reliability requirements demand it.</p><p><strong>Tradeoff:</strong> monitoring and higher hosting tiers add expense, so set the requirement before buying the service.</p></div></details>
+            <details><summary>DNS, certificates, and dependencies <span class="status planned">Planned safeguards</span></summary><div class="risk-body"><p><strong>Today:</strong> Azure manages the site's HTTPS certificate; the repository installs dependencies from its lockfile.</p><p><strong>Next:</strong> add domain-renewal reminders, certificate-expiry checks, dependency alerts, and dedicated secret scanning. Document token rotation.</p><p><strong>Trigger:</strong> routine maintenance, provider notices, or an identified vulnerability.</p></div></details>
+            <details><summary>A growing knowledge library <span class="status planned">Demand-led</span></summary><div class="risk-body"><p><strong>Today:</strong> a static index is enough for two articles and a manual review process.</p><p><strong>Next:</strong> add categories when navigation becomes difficult, then a static search tool such as Pagefind. Consider an opt-in publication helper only when repeated copying becomes costly.</p><p><strong>Boundary:</strong> never replace selective approval with whole-vault publishing.</p></div></details>
+            <details><summary>More interactive product requirements <span class="status planned">Demand-led</span></summary><div class="risk-body"><p><strong>Today:</strong> no accounts, private state, comments, or application API.</p><p><strong>Next:</strong> use an isolated interactive component for a browser-only tool. Evaluate an API and database only when a feature genuinely requires server-side or private persistent state.</p><p><strong>Decision rule:</strong> evolve the current architecture before considering a framework rewrite.</p></div></details>
+            <div class="decision"><p class="eyebrow">What I would improve next</p><h3>Make recovery as deliberate as deployment.</h3><p>My next engineering priorities are a documented rollback path, automated pull-request checks, and a lightweight live-site health check. A larger architecture can wait.</p></div>
+          </section>
+        </div>
+      </div>
+      <section class="closing" aria-label="Project conclusion"><div class="shell"><p>The most valuable outcome was not adding more technology. It was learning which responsibilities the product actually needed me to own.</p><a class="text-link" href="#projects"><img class="icon" src="assets/arrow-left.svg" alt="" width="17" height="17"> Back to projects</a></div></section>
+    </div>
+  </main>
+  <footer><div class="shell"><span>Gaku Chen / Selected work</span><span>Designed, built, and continuously reconsidered.</span></div></footer>
+  <script>
+    const projectsView = document.getElementById('projects-view');
+    const caseStudyView = document.getElementById('case-study-view');
+    const chapterSelect = document.getElementById('chapter-select');
+    const chapterLinks = [...document.querySelectorAll('.chapter-nav a[href]:not(.source-link)')];
+    const chapters = [...document.querySelectorAll('.chapter')];
+    const caseTargets = new Set(['overview', ...chapters.map(chapter => chapter.id)]);
+    let currentView = '';
+
+    function setChapter(chapterId) {
+      chapterSelect.value = chapterId;
+      for (const link of chapterLinks) {
+        if (link.hash === '#' + chapterId) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      }
+    }
+
+    function showRoute() {
+      const targetId = location.hash.slice(1);
+      const isCaseStudy = caseTargets.has(targetId);
+      const nextView = isCaseStudy ? 'case-study' : 'projects';
+      if (targetId === 'main-content') {
+        document.getElementById('main-content').focus();
+        return;
+      }
+      projectsView.hidden = isCaseStudy;
+      caseStudyView.hidden = !isCaseStudy;
+      document.title = isCaseStudy ? 'Gaku Personal Website | Engineering Case Study' : 'Gaku | Project Portfolio';
+      for (const link of document.querySelectorAll('[data-view-link]')) {
+        if (link.dataset.viewLink === nextView) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      }
+      if (nextView !== currentView) {
+        const heading = document.getElementById(isCaseStudy ? 'case-title' : 'projects-title');
+        if (currentView) heading.focus({ preventScroll: true });
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      currentView = nextView;
+      if (isCaseStudy) {
+        setChapter(targetId === 'overview' ? 'discover' : targetId);
+        requestAnimationFrame(() => document.getElementById(targetId).scrollIntoView({ behavior: 'instant', block: 'start' }));
+      }
+    }
+
+    chapterSelect.addEventListener('change', () => { location.hash = chapterSelect.value; });
+    window.addEventListener('hashchange', showRoute);
+    let scrollScheduled = false;
+    window.addEventListener('scroll', () => {
+      if (caseStudyView.hidden || scrollScheduled) return;
+      scrollScheduled = true;
+      requestAnimationFrame(() => {
+        const threshold = window.innerWidth <= 760 ? 175 : 150;
+        const active = [...chapters].reverse().find(chapter => chapter.getBoundingClientRect().top <= threshold) || chapters[0];
+        setChapter(active.id);
+        scrollScheduled = false;
+      });
+    }, { passive: true });
+    showRoute();
+  </script>
+</body>
+</html>
