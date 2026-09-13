@@ -6,7 +6,7 @@ This document records the current architecture and the preferred extension point
 
 ## 2. Current Architecture
 
-The website uses Astro 7 and TypeScript. Astro generates static HTML at build time, with browser JavaScript used only for small homepage interactions.
+The website uses Astro 7 and TypeScript. Astro generates static HTML at build time, with browser JavaScript used only for homepage interactions and progressive enhancement of case-study section navigation.
 
 ```mermaid
 flowchart LR
@@ -20,7 +20,7 @@ Current characteristics:
 
 - No application backend or database.
 - No user accounts or private content.
-- One profile page and a public Knowledge section.
+- One profile page with a Projects preview, a static project case study, and a public Knowledge section.
 - Typed Markdown metadata through Astro content collections.
 - Production-output tests using Node's built-in test runner.
 - English-only public content.
@@ -33,9 +33,11 @@ gaku-site/
 ├── src/
 │   ├── content/
 │   │   └── knowledge/          Approved public Markdown copies
+│   ├── components/             Homepage ProjectPreview
 │   ├── layouts/                Shared page shells and metadata
 │   ├── pages/                  File-based routes
-│   │   └── knowledge/          Knowledge index and article route
+│   │   ├── knowledge/          Knowledge index and article route
+│   │   └── projects/           Static project case studies
 │   ├── styles/                 Global visual system
 │   └── content.config.ts       Content schema and validation
 ├── tests/                      Build-output regression tests
@@ -99,6 +101,7 @@ Astro file-based routing currently produces:
 
 ```text
 /                                      Profile
+/projects/gaku-site/                    Personal website case study
 /knowledge/                            Knowledge index
 /knowledge/application-gateway/        Article
 /knowledge/kerberos/                   Article
@@ -107,6 +110,37 @@ Astro file-based routing currently produces:
 `src/pages/knowledge/[...slug].astro` generates one static article route per content entry. Keep this build-time model for public articles because it provides fast pages, predictable SEO, and no runtime data dependency.
 
 If the collection grows, prefer derived static pages for categories and tags. Do not introduce a database merely to list or filter public Markdown.
+
+### Project Portfolio Implementation
+
+The approved portfolio is implemented in the application source. The standalone demos and demo-only tests have been removed; Git history retains the design iterations. Local implementation is not evidence of a production deployment.
+
+| File | Responsibility |
+| --- | --- |
+| `src/components/ProjectPreview.astro` | Homepage project screenshot, summary, technologies, case-study and source links; component-scoped styling |
+| `src/pages/index.astro` | Adds Projects navigation and inserts the preview between Experience and Contact |
+| `src/pages/projects/gaku-site.astro` | Static case-study content, three section definitions, and typed browser navigation script |
+| `src/layouts/ContentLayout.astro` | Shared Knowledge/Projects shell, header, skip link, footer, canonical URL and Open Graph metadata |
+| `src/layouts/KnowledgeLayout.astro` | Compatibility wrapper retaining existing title/description props for Knowledge routes |
+| `src/styles/projects.css` | Case-study styling scoped under `.portfolio`; reuses global fonts, colors and controls |
+| `public/projects/gaku-site-desktop.png` | Existing 1440 x 1000 screenshot, shown in the homepage preview and referenced in case-study social metadata |
+| `public/icons/arrow-*.svg` | Local Lucide arrows, preserving the original license notices |
+| `tests/projects.test.mjs` | Production-output regression coverage for the preview, route, content, navigation targets, assets and documentation |
+
+The single case study is authored directly in Astro rather than adding a project content schema before multiple entries require it. Its three sections are Project & Delivery (`#build`), Key Decisions (`#decisions`), and What's Next (`#next`). Decisions also have stable nested anchors, such as `#decision-hosting`. The preview and case study retain the approved 950-word combined copy budget and 110-word per-decision limit.
+
+Navigation behavior:
+
+- Real URLs replace the demo's hidden-view routing. `/#projects` returns to the homepage section, while `/projects/gaku-site/` can be loaded or shared independently.
+- The desktop sidebar and mobile selector are generated from the same section array. Native fragment navigation preserves browser history and direct links.
+- JavaScript reveals the mobile selector, focuses the selected heading without an extra focus scroll, and updates the sidebar's `aria-current="location"` on hash changes, scroll, page restoration and resize.
+- Scroll handling is throttled with `requestAnimationFrame`. At the bottom of the document, the final section stays selected even when there is insufficient content to align it at the top.
+- Global 80px scroll padding plus case-study scroll margins provide 112px desktop and 164px mobile anchor offsets. The mobile selector sits below the 76px header. Existing reduced-motion rules apply.
+- Without JavaScript, all content remains rendered and readable. Native mobile section links replace the selector through `noscript`; desktop links work unchanged.
+
+The content shell adds a Projects link to Knowledge pages without changing their routes or content API. Canonical and Open Graph URLs use the configured Astro site origin; the project screenshot supplies the case-study sharing image. The homepage keeps its existing hero, menu, contact controls and layout.
+
+Assets were promoted from the approved design, not fetched again. The screenshot was captured on September 13, 2026 and contains the site's existing imagery. The three arrows are from `lucide-static@0.468.0`. No new runtime dependency, backend, secret, build plugin, or Azure resource is introduced. Fonts and the homepage's existing remote images remain external dependencies.
 
 ## 7. Future Feature Strategy
 
@@ -136,11 +170,18 @@ Interactive calculators or visualizations can be isolated as Astro islands using
 
 The build output is the `dist/` directory and can be served by any static host or conventional web server.
 
-Deployment choices:
+Current deployment:
+
+- Azure Static Web Apps Free serves the site at the configured custom HTTPS domain.
+- `.github/workflows/deploy-static-web-app.yml` runs `npm ci`, `npm test`, and `npm run check` on main updates or manual dispatch, then uploads `dist` using a GitHub Actions secret.
+- Bicep provisioning and application uploads remain separate. Adding the project route requires no infrastructure or workflow changes.
+- This portfolio implementation is local until pushed and deployed. Pull-request gates, live health checks, and recovery rehearsal remain future work.
+
+Alternative hosting considerations:
 
 - **GitHub Pages:** simple and repository-native. A project site at `Sugoigaku.github.io/gaku-site` requires the Astro `base` path and base-aware links/assets, unless a custom domain removes the subpath.
 - **Cloudflare Pages or Vercel:** automatic builds, previews, and root-path hosting with little configuration.
-- **Azure static hosting or a VM:** appropriate when Azure ownership or infrastructure learning is itself a goal, but operational work is higher than the current site requires.
+- **Azure VM:** the retained reference offers server control, but adds OS and Nginx operation that the selected managed static host avoids.
 
 Deployment should run `npm test` and `npm run check` before publishing. Secrets, if ever required by build tooling, must be stored in the hosting platform's secret store and never committed.
 
@@ -167,8 +208,12 @@ The test suite should continue to verify:
 - Published article presence and review context.
 - Absence of unresolved Obsidian wikilinks.
 - Absence of common credential patterns in build output.
+- Project preview placement, case-study metadata, the three-section order, unique anchor targets, concise decision content, explicit future-work labels, and deployed local assets.
+- Removal of obsolete standalone demo files and documentation references.
 
 For UI changes, also inspect representative desktop and mobile widths for overflow, text collision, keyboard access, and image loading.
+
+The portfolio was checked against the built output at 1440px, 390px, and 320px widths. Browser coverage includes homepage-to-case navigation, mobile menu closure, section selection, sticky offsets, nested links, browser Back, skip-link focus, Knowledge navigation, and mobile navigation with scripts disabled. These local checks do not establish live uptime, an audited total bill, or tested production recovery.
 
 ## 10. Architecture Decision Rules
 

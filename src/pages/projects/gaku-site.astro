@@ -1,0 +1,137 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import '../../styles/projects.css';
+
+const sections = [
+  { id: 'build', number: '01', label: 'Project & delivery' },
+  { id: 'decisions', number: '02', label: 'Key decisions' },
+  { id: 'next', number: '03', label: "What's next" },
+];
+---
+
+<ContentLayout title="Gaku Personal Website" description="A professional profile and technical knowledge library, built with Astro and deployed to Azure. The stack, key decisions, and next improvements." section="projects" image="/projects/gaku-site-desktop.png">
+  <article class="portfolio">
+    <header class="project-shell case-intro" id="overview">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/#projects">Projects</a><span aria-hidden="true">/</span><span>Gaku Personal Website</span></nav>
+      <p class="project-label">Personal project / Live</p>
+      <h1>Gaku Personal Website</h1>
+      <p class="lead">A professional profile and a public library of technical articles.</p>
+      <p class="intro-copy">Experience, contact information, and two reviewed knowledge articles. English-only, responsive, and served over HTTPS. No application backend or database.</p>
+      <ul class="tags" aria-label="Technology stack"><li>Astro + TypeScript</li><li>Markdown</li><li>Git + GitHub Actions</li><li>Azure Static Web Apps</li><li>Bicep</li></ul>
+      <div class="actions">
+        <a class="button primary" href="https://www.gakuchen.com/" target="_blank" rel="noopener noreferrer">Visit live site <img class="icon" src="/icons/arrow-up-right.svg" alt="" width="17" height="17" /></a>
+        <a class="project-link" href="https://github.com/Sugoigaku/gaku-site" target="_blank" rel="noopener noreferrer">Source code <img class="icon" src="/icons/arrow-up-right.svg" alt="" width="17" height="17" /></a>
+      </div>
+      <dl class="facts"><div><dt>My role</dt><dd>Scope, architecture decisions &amp; review</dd></div><div><dt>Built with</dt><dd>GitHub Copilot: code, tests &amp; deployment</dd></div><div><dt>Current budget</dt><dd>$0-20 / month; minimize spend</dd></div></dl>
+    </header>
+
+    <div class="mobile-nav" data-section-picker hidden>
+      <label for="section-select">Section</label>
+      <select id="section-select">{sections.map(section => <option value={section.id}>{section.number} / {section.label}</option>)}</select>
+    </div>
+    <noscript><nav class="mobile-fallback" aria-label="Case study sections">{sections.map(section => <a href={`#${section.id}`}>{section.label}</a>)}</nav></noscript>
+    <div class="project-shell case-grid">
+      <nav class="section-nav" aria-label="Case study sections">
+        <p class="small-label">The project</p>
+        {sections.map(section => <a href={`#${section.id}`} data-section-link><span>{section.number}</span>{section.label}</a>)}
+        <a class="back-link" href="/#projects"><img class="icon" src="/icons/arrow-left.svg" alt="" width="17" height="17" />All projects</a>
+      </nav>
+      <div class="case-content">
+        <section class="chapter" id="build" data-chapter aria-labelledby="build-title">
+          <p class="project-label">01 / Project &amp; delivery</p><h2 id="build-title" tabindex="-1">From content to a live site.</h2>
+          <dl class="build-spec">
+            <div><dt>Application</dt><dd><strong>Astro + TypeScript + CSS</strong><p>Static pages generated at build time, with small browser scripts for interactions.</p></dd></div>
+            <div><dt>Content</dt><dd><strong>Markdown content collections</strong><p>Only reviewed public copies enter the site. The private Obsidian vault stays outside the build.</p></dd></div>
+            <div><dt>Version control</dt><dd><strong>Git + GitHub</strong><p>Focused commits track each change. Initial work used main; the portfolio was developed on a feature branch.</p></dd></div>
+            <div><dt>CI/CD</dt><dd><strong>GitHub Actions</strong><p>Updates to main, or manual dispatch, run build, tests, and type checks before uploading dist. The deployment token stays in GitHub Secrets.</p><a href="https://github.com/Sugoigaku/gaku-site/blob/a69de36/.github/workflows/deploy-static-web-app.yml" target="_blank" rel="noopener noreferrer">Deployment workflow</a></dd></div>
+            <div><dt>Infrastructure</dt><dd><strong>Azure Static Web Apps Free + Bicep</strong><p>Bicep provisions hosting and optional custom-domain binding; the application workflow deploys files separately. Azure serves the site over HTTPS. The original Linux VM + Nginx template is retained.</p><a href="https://github.com/Sugoigaku/gaku-site/tree/0c96a4e/infra" target="_blank" rel="noopener noreferrer">Infrastructure templates</a></dd></div>
+          </dl>
+          <figure class="diagram"><figcaption>Application release</figcaption><ol class="flow"><li><strong>GitHub / main</strong><span>Code + approved content</span></li><li><strong>Build &amp; validate</strong><span>npm ci / npm test / npm run check</span></li><li class="destination"><strong>Deploy dist</strong><span>Azure Static Web Apps</span></li></ol><p class="annotation">Visitors load the published files over HTTPS; CI runs on releases, not on page requests.</p></figure>
+        </section>
+        <section class="chapter" id="decisions" data-chapter aria-labelledby="decisions-title">
+          <p class="project-label">02 / Key decisions</p><h2 id="decisions-title" tabindex="-1">What I chose, and why.</h2>
+          <article class="decision-record" id="decision-scope" aria-labelledby="scope-title">
+            <h3 id="scope-title"><span class="decision-number">01</span>Keep the MVP small and static.</h3>
+            <dl class="decision-facts"><div><dt>My choice</dt><dd>Start with an English profile, then add selected articles. No accounts or database.</dd></div><div><dt>Why</dt><dd>The job is publishing content, not managing user data. Copilot proposed Astro to support that scope.</dd></div><div><dt>Tradeoff</dt><dd>Content changes need a rebuild; private saved features would need more architecture.</dd></div></dl>
+            <a class="source-link" href="https://github.com/Sugoigaku/gaku-site/commit/29c9387" target="_blank" rel="noopener noreferrer">Scope decision</a>
+          </article>
+          <article class="decision-record" id="decision-boundary" aria-labelledby="boundary-title">
+            <h3 id="boundary-title"><span class="decision-number">02</span>Publish reviewed copies, not the vault.</h3>
+            <dl class="decision-facts"><div><dt>My choice</dt><dd>Manually select and review articles before copying them into the public site.</dd></div><div><dt>Why</dt><dd>Share useful knowledge without exposing unrelated private or internal notes.</dd></div><div><dt>Tradeoff</dt><dd>Some duplication and content drift, acceptable for two articles.</dd></div></dl>
+            <a class="source-link" href="https://github.com/Sugoigaku/gaku-site/commit/7dbff39" target="_blank" rel="noopener noreferrer">Publication policy</a>
+          </article>
+          <article class="decision-record" id="decision-hosting" aria-labelledby="hosting-title">
+            <h3 id="hosting-title"><span class="decision-number">03</span>Move from a VM to managed hosting.</h3>
+            <dl class="decision-facts"><div><dt>My choice</dt><dd>After initially requesting a Linux VM, approve Copilot's Static Web Apps proposal when I asked for HTTPS and its cost.</dd></div><div><dt>Why</dt><dd>A static site does not need my own OS and Nginx to maintain. Managed HTTPS and the Free tier fit a low-spend MVP.</dd></div><div><dt>Tradeoff</dt><dd>Less server control and platform limits. Domain renewal is separate; Free hosting is not a measured total bill.</dd></div></dl>
+            <a class="source-link" href="https://github.com/Sugoigaku/gaku-site/commit/0c96a4e" target="_blank" rel="noopener noreferrer">Hosting change</a>
+          </article>
+        </section>
+        <section class="chapter" id="next" data-chapter aria-labelledby="next-title">
+          <p class="project-label">03 / What's next</p><h2 id="next-title" tabindex="-1">Risks and improvements.</h2>
+          <p>Planned work, not implemented features.</p>
+          <dl class="next-list">
+            <div><dt>Bad releases</dt><dd>Add pull-request checks, post-deployment route checks, and rehearse restoring a known-good revision.</dd></div>
+            <div><dt>DNS, TLS or hosting failure</dt><dd>Add a lightweight availability check. Agree recovery targets before others depend on the site.</dd></div>
+            <div><dt>More articles</dt><dd>Introduce a selective publishing helper when manual copying becomes a burden; keep human review for privacy and content drift.</dd></div>
+            <div><dt>More traffic or features</dt><dd>Review actual costs and service limits before upgrading. Add an API or database only when a feature needs private state.</dd></div>
+          </dl>
+          <p class="next-priority"><strong>First priority:</strong> validate a release and its recovery path. Recovery has not been rehearsed; an uptime target is not yet set.</p>
+        </section>
+      </div>
+    </div>
+    <section class="closing" aria-label="Project links"><div class="project-shell"><a class="project-link" href="https://github.com/Sugoigaku/gaku-site" target="_blank" rel="noopener noreferrer">Explore the repository <img class="icon" src="/icons/arrow-up-right.svg" alt="" width="17" height="17" /></a><a class="project-link" href="/#projects"><img class="icon" src="/icons/arrow-left.svg" alt="" width="17" height="17" />Back to projects</a></div></section>
+  </article>
+</ContentLayout>
+
+<script>
+  const picker = document.querySelector<HTMLElement>('[data-section-picker]');
+  const select = document.querySelector<HTMLSelectElement>('#section-select');
+  const chapters = [...document.querySelectorAll<HTMLElement>('[data-chapter]')];
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-section-link]')];
+
+  function setSection(sectionId: string) {
+    if (select) select.value = sectionId;
+    for (const link of links) {
+      if (link.hash === `#${sectionId}`) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  }
+
+  function updateFromScroll() {
+    const offset = window.matchMedia('(max-width: 760px)').matches ? 184 : 132;
+    const atBottom = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    const active = atBottom ? chapters.at(-1) : [...chapters].reverse().find(chapter => chapter.getBoundingClientRect().top <= offset) ?? chapters[0];
+    if (active) setSection(active.id);
+  }
+
+  function updateFromHash() {
+    const target = document.getElementById(location.hash.slice(1));
+    const chapter = target?.closest<HTMLElement>('[data-chapter]');
+    if (chapter) setSection(chapter.id);
+    else updateFromScroll();
+  }
+
+  if (picker && select) {
+    picker.hidden = false;
+    select.addEventListener('change', () => {
+      const target = document.getElementById(select.value);
+      if (!target) return;
+      location.hash = target.id;
+      target.querySelector<HTMLElement>('h2')?.focus({ preventScroll: true });
+      target.scrollIntoView();
+    });
+  }
+  let scrollScheduled = false;
+  window.addEventListener('scroll', () => {
+    if (scrollScheduled) return;
+    scrollScheduled = true;
+    requestAnimationFrame(() => {
+      updateFromScroll();
+      scrollScheduled = false;
+    });
+  }, { passive: true });
+  window.addEventListener('hashchange', updateFromHash);
+  window.addEventListener('pageshow', updateFromHash);
+  window.addEventListener('resize', updateFromScroll);
+  updateFromHash();
+</script>

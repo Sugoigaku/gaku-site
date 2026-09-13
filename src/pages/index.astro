@@ -1,11 +1,13 @@
 ---
 import '../styles/global.css';
+import ProjectPreview from '../components/ProjectPreview.astro';
 
 const email = 'hakbean0728@gmail.com';
 const navItems = [
   { label: 'Knowledge', href: '/knowledge/' },
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ];
 ---
@@ -136,9 +138,11 @@ const navItems = [
         </div>
       </section>
 
+      <ProjectPreview />
+
       <section class="section contact-section" id="contact" aria-labelledby="contact-title">
         <div class="section-inner">
-          <span class="section-number">03 / Contact</span>
+          <span class="section-number">04 / Contact</span>
           <h2 id="contact-title">Let's connect.</h2>
           <p class="contact-lede">I enjoy meeting new people, talking about technology, and investing in the U.S. stock market. Feel free to get in touch.</p>
           <div class="contact-actions">

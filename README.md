@@ -1,6 +1,8 @@
 # Gaku Personal Website
 
-An English-only personal website demo built with Astro. It includes a single-page professional profile and a small public Knowledge section. The current profile details, experience dates, email address, LinkedIn destination, and images are sample content for reviewing the interface and user flow.
+An English-only personal website built with Astro. It includes a professional profile, a Projects preview and case study, and a small public Knowledge section.
+
+The homepage Projects section links to `/projects/gaku-site/`, which presents the website's delivery stack, key decisions, and future improvements. The standalone design demos have been retired. See [Technical Design](TECHNICAL_DESIGN.md) for the production implementation.
 
 The Knowledge section currently publishes two reviewed English adaptations:
 
@@ -123,8 +125,7 @@ After validating the generated HTTPS URL, the previous VM resource group can be 
 
 ## Before Publishing
 
-- Replace all sample profile content with verified information.
-- Replace the demo email and LinkedIn links.
+- Verify profile details and contact links before publishing changes.
 - Confirm that the selected images may be used in production or replace them with owned assets.
 - Run `npm test` and inspect mobile and desktop layouts.
 - Scan the staged changes for credentials and private information.
