@@ -4,7 +4,7 @@
 
 An English-only personal website that presents Gaku's professional identity in a clear, credible, and approachable way. The original MVP is a focused single-page profile. The approved next phase adds a project portfolio that demonstrates how Gaku defines, builds, and delivers a solution.
 
-The original MVP scope below remains the baseline. Section 11 records the approved portfolio design; its integration into the live site is not yet implemented.
+The original MVP scope below remains the baseline. Section 11 records the approved portfolio design, now implemented in the application source. Production deployment is a separate step.
 
 The site should help a visitor answer three questions quickly:
 
@@ -130,7 +130,7 @@ The MVP is ready when:
 
 ### Status and Reference
 
-Approved on September 13, 2026. Use the simplified [portfolio demo](demos/project-portfolio-v2.html) as the design reference. This approval selects the design; the demo remains separate from the production routes until integration is implemented and validated.
+Approved on September 13, 2026 and integrated as the homepage Projects preview and [case-study implementation](src/pages/projects/gaku-site.astro) at `/projects/gaku-site/`. The standalone demos have been removed after integration; their iterations remain in Git history. Implementation details and validation are recorded in [Technical Design](TECHNICAL_DESIGN.md). This does not indicate a production deployment.
 
 ### Visitor Experience
 
@@ -176,7 +176,7 @@ The first priority is release validation and a tested recovery path. Recovery ha
 ### Content and Acceptance Criteria
 
 - Lead with the project, not an essay about architectural judgment. Retain the existing visual language and real project imagery.
-- Keep the first project's preview and case study within the approved demo's 950-word budget, with each decision no longer than 110 words.
+- Keep the first project's preview and case study within the approved 950-word budget, with each decision no longer than 110 words.
 - Keep core content visible without accordions. Omit a separate evidence chapter, repeated caveats, and lengthy alternative comparisons.
 - Distinguish implemented behavior, personal decisions, AI assistance, and planned work. Do not invent performance, savings, uptime, or recovery results.
 - Preserve the existing profile, knowledge pages, and publication-review boundary during integration.

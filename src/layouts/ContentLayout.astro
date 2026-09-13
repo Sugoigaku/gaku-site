@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  section?: 'knowledge' | 'projects';
+  image?: string;
+}
+
+const { title, description, section = 'knowledge', image } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f4ef" />
+    <meta property="og:title" content={`${title} | Gaku Chen`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonical.href} />
+    {image && <meta property="og:image" content={new URL(image, Astro.site).href} />}
+    <link rel="canonical" href={canonical.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>{title} | Gaku Chen</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header scrolled knowledge-header">
+      <nav class="nav-shell" aria-label="Main navigation">
+        <a class="brand" href="/" aria-label="Gaku Chen, home">Gaku<span class="brand-mark">.</span></a>
+        <div class="content-nav">
+          <a href="/knowledge/" aria-current={section === 'knowledge' ? 'true' : undefined}>Knowledge</a>
+          <a href="/#projects" aria-current={section === 'projects' ? 'true' : undefined}>Projects</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+    <main id="main-content" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>&copy; 2026 Gaku Chen</span>
+        <a href={section === 'projects' ? '/#projects' : '/knowledge/'}>{section === 'projects' ? 'All projects' : 'Knowledge index'}</a>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .content-nav { display: flex; align-items: center; gap: 1.5rem; }
+  .content-nav a { display: inline-flex; align-items: center; min-height: 44px; font: 0.78rem var(--mono); text-underline-offset: 5px; text-transform: uppercase; }
+  .content-nav a[aria-current] { text-decoration-color: #b84225; text-decoration-thickness: 2px; }
+  @media (max-width: 760px) {
+    .nav-shell { gap: 1rem; }
+    .content-nav { gap: 0.75rem; }
+    .content-nav a { font-size: 0.64rem; }
+  }
+</style>
