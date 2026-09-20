@@ -3,16 +3,35 @@ import { access, readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 const home = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
+const projectIndex = await readFile(new URL('../dist/projects/index.html', import.meta.url), 'utf8');
 const page = await readFile(new URL('../dist/projects/gaku-site/index.html', import.meta.url), 'utf8');
 
-test('homepage presents the project preview before contact with a real case-study link', () => {
-  assert.match(home, /href="#projects"[^>]*>Projects<\/a>/);
-  assert.ok(home.indexOf('id="projects"') > home.indexOf('id="experience"'));
-  assert.ok(home.indexOf('id="projects"') < home.indexOf('id="contact"'));
-  assert.match(home, /href="\/projects\/gaku-site\/"/);
-  assert.match(home, /src="\/projects\/gaku-site-desktop\.png"/);
-  assert.match(home, /Gaku Personal Website/);
-  assert.match(home, /04 \/ Contact/);
+test('About keeps work history but links to projects on a separate page', () => {
+  assert.match(home, /href="\/projects\/"[^>]*>Project<\/a>/);
+  assert.doesNotMatch(home, /id="projects"|href="#projects"|class="project-preview"/);
+  assert.match(home, /id="experience"/);
+  assert.match(home, /03 \/ Contact/);
+  assert.equal([...projectIndex.matchAll(/<h1\b/g)].length, 1);
+  assert.match(projectIndex, /<h2\b[^>]*>Gaku Personal Website<\/h2>/);
+  assert.match(projectIndex, /href="\/projects\/gaku-site\/"/);
+  assert.match(projectIndex, /src="\/projects\/gaku-site-desktop\.png"/);
+  assert.match(projectIndex, /Gaku Personal Website/);
+});
+
+test('main navigation has the same four ordered links on every page', async () => {
+  const knowledge = await readFile(new URL('../dist/knowledge/index.html', import.meta.url), 'utf8');
+  for (const document of [home, knowledge, projectIndex, page]) {
+    const nav = document.match(/<nav\b[^>]*aria-label="Main navigation"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+    assert.ok(nav, 'Missing main navigation');
+    const links = [...nav.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)];
+    assert.deepEqual(links.map(match => match[2]), ['About', 'Knowledge', 'Project', 'Contact']);
+    assert.deepEqual(links.map(match => match[1]), [
+      document === home ? '#about' : '/#about',
+      '/knowledge/',
+      '/projects/',
+      document === home ? '#contact' : '/#contact',
+    ]);
+  }
 });
 
 test('case study is a discoverable static route with three ordered sections', () => {
@@ -29,7 +48,8 @@ test('case study is a discoverable static route with three ordered sections', ()
     assert.ok(position > previous, `Missing or out-of-order section: ${section}`);
     previous = position;
   }
-  assert.match(page, /href="\/#projects"/);
+  assert.match(page, /href="\/projects\/"/);
+  assert.doesNotMatch(page, /href="\/#projects"/);
 });
 
 test('case-study anchors, labels and mobile options resolve to unique static targets', () => {
@@ -62,7 +82,7 @@ test('case study retains concise decisions, delivery details and honest future w
 });
 
 test('portfolio assets are deployed and external links do not expose credentials', async () => {
-  const preview = home.slice(home.indexOf('id="projects"'), home.indexOf('id="contact"'));
+  const preview = projectIndex.slice(projectIndex.indexOf('id="projects"'), projectIndex.indexOf('</main>'));
   for (const html of [preview, page]) {
     for (const [, src] of html.matchAll(/<img[^>]+src="([^"]+)"/g)) {
       assert.ok((await readFile(new URL(`../dist${src}`, import.meta.url))).length > 0);
@@ -74,7 +94,7 @@ test('portfolio assets are deployed and external links do not expose credentials
 });
 
 test('production portfolio stays within the approved combined copy budget', () => {
-  const preview = home.slice(home.indexOf('id="projects"'), home.indexOf('id="contact"'));
+  const preview = projectIndex.slice(projectIndex.indexOf('id="projects"'), projectIndex.indexOf('</main>'));
   const article = page.slice(page.indexOf('<article class="portfolio">'), page.indexOf('</main>'));
   const words = (preview + article).replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '').replace(/<[^>]*>/g, ' ').trim().split(/\s+/);
   assert.ok(words.length <= 950, `Portfolio copy exceeds the 950-word budget: ${words.length}`);

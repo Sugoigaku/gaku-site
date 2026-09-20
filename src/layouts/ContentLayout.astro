@@ -36,8 +36,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <nav class="nav-shell" aria-label="Main navigation">
         <a class="brand" href="/" aria-label="Gaku Chen, home">Gaku<span class="brand-mark">.</span></a>
         <div class="content-nav">
+          <a href="/#about">About</a>
           <a href="/knowledge/" aria-current={section === 'knowledge' ? 'true' : undefined}>Knowledge</a>
-          <a href="/#projects" aria-current={section === 'projects' ? 'true' : undefined}>Projects</a>
+          <a href="/projects/" aria-current={section === 'projects' ? 'true' : undefined}>Project</a>
           <a href="/#contact">Contact</a>
         </div>
       </nav>
@@ -46,7 +47,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <footer class="site-footer">
       <div class="footer-inner">
         <span>&copy; 2026 Gaku Chen</span>
-        <a href={section === 'projects' ? '/#projects' : '/knowledge/'}>{section === 'projects' ? 'All projects' : 'Knowledge index'}</a>
+        <a href={section === 'projects' ? '/projects/' : '/knowledge/'}>{section === 'projects' ? 'All projects' : 'Knowledge index'}</a>
       </div>
     </footer>
   </body>
@@ -57,7 +58,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   .content-nav a { display: inline-flex; align-items: center; min-height: 44px; font: 0.78rem var(--mono); text-underline-offset: 5px; text-transform: uppercase; }
   .content-nav a[aria-current] { text-decoration-color: #b84225; text-decoration-thickness: 2px; }
   @media (max-width: 760px) {
-    .nav-shell { gap: 1rem; }
+    .nav-shell { flex-wrap: wrap; column-gap: 1rem; row-gap: 0; padding-block: 0.5rem; }
     .content-nav { gap: 0.75rem; }
     .content-nav a { font-size: 0.64rem; }
   }

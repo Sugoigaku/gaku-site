@@ -1,8 +1,8 @@
 <section class="section projects-section" id="projects" aria-labelledby="projects-title">
   <div class="section-inner">
     <div class="section-heading">
-      <span class="section-number">03 / Selected work</span>
-      <h2 id="projects-title">Projects.</h2>
+      <span class="section-number">Selected work</span>
+      <h1 id="projects-title">Projects.</h1>
     </div>
     <article class="project-preview">
       <a class="project-image" href="/projects/gaku-site/" aria-label="View Gaku Personal Website case study">
@@ -10,7 +10,7 @@
       </a>
       <div class="preview-copy">
         <span class="project-status">Live project / Solo build</span>
-        <h3>Gaku Personal Website</h3>
+        <h2>Gaku Personal Website</h2>
         <p>My professional profile and selected technical articles, published as a static website.</p>
         <p>Built with GitHub Copilot. Versioned in Git, tested and deployed with GitHub Actions, hosted on Azure over HTTPS.</p>
         <ul class="project-tags" aria-label="Project technologies"><li>Astro + TypeScript</li><li>Static Web Apps</li><li>Bicep</li></ul>
@@ -26,12 +26,12 @@
 
 <style>
   .projects-section .section-number { color: #b84225; }
-  .projects-section h2 { font-size: 3rem; }
+  .projects-section h1 { font-size: 3rem; margin-bottom: 0; }
   .project-preview { display: grid; grid-template-columns: 1.15fr 1fr; gap: 3rem; align-items: center; }
   .project-image { display: block; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
   .project-image img { display: block; width: 100%; height: auto; aspect-ratio: 1440 / 1000; }
   .project-status { color: #345516; font: 0.7rem/1.6 var(--mono); }
-  .preview-copy h3 { font-size: 2.1rem; line-height: 1.2; margin: 1rem 0; }
+  .preview-copy h2 { font-size: 2.1rem; line-height: 1.2; margin: 1rem 0; }
   .preview-copy p { font-size: 0.94rem; }
   .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; padding: 0; margin: 1.5rem 0; list-style: none; color: var(--muted); font: 0.7rem/1.7 var(--mono); }
   .project-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; }
@@ -42,7 +42,7 @@
   .preview-note p { font-size: 0.8rem; margin: 0.5rem 0 0; }
   @media (max-width: 800px) {
     .project-preview { grid-template-columns: 1fr; gap: 1.5rem; }
-    .projects-section h2 { font-size: 2.4rem; }
-    .preview-copy h3 { font-size: 1.85rem; }
+    .projects-section h1 { font-size: 2.4rem; }
+    .preview-copy h2 { font-size: 1.85rem; }
   }
 </style>

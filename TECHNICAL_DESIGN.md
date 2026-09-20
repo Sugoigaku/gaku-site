@@ -20,7 +20,7 @@ Current characteristics:
 
 - No application backend or database.
 - No user accounts or private content.
-- One profile page with a Projects preview, a static project case study, and a public Knowledge section.
+- One About/profile page, a separate Project index and static case study, and a public Knowledge section.
 - Typed Markdown metadata through Astro content collections.
 - Production-output tests using Node's built-in test runner.
 - English-only public content.
@@ -33,11 +33,11 @@ gaku-site/
 ├── src/
 │   ├── content/
 │   │   └── knowledge/          Approved public Markdown copies
-│   ├── components/             Homepage ProjectPreview
+│   ├── components/             Project index preview
 │   ├── layouts/                Shared page shells and metadata
 │   ├── pages/                  File-based routes
 │   │   ├── knowledge/          Knowledge index and article route
-│   │   └── projects/           Static project case studies
+│   │   └── projects/           Project index and static case studies
 │   ├── styles/                 Global visual system
 │   └── content.config.ts       Content schema and validation
 ├── tests/                      Build-output regression tests
@@ -101,6 +101,7 @@ Astro file-based routing currently produces:
 
 ```text
 /                                      Profile
+/projects/                              Project index
 /projects/gaku-site/                    Personal website case study
 /knowledge/                            Knowledge index
 /knowledge/application-gateway/        Article
@@ -117,13 +118,14 @@ The approved portfolio is implemented in the application source. The standalone 
 
 | File | Responsibility |
 | --- | --- |
-| `src/components/ProjectPreview.astro` | Homepage project screenshot, summary, technologies, case-study and source links; component-scoped styling |
-| `src/pages/index.astro` | Adds Projects navigation and inserts the preview between Experience and Contact |
+| `src/components/ProjectPreview.astro` | Project index heading, screenshot, summary, technologies, case-study and source links; component-scoped styling |
+| `src/pages/index.astro` | About/profile page with work history, interests and Contact; links to Project without embedding a preview |
+| `src/pages/projects/index.astro` | Standalone Project index reusing the preview inside the shared content layout |
 | `src/pages/projects/gaku-site.astro` | Static case-study content, three section definitions, and typed browser navigation script |
 | `src/layouts/ContentLayout.astro` | Shared Knowledge/Projects shell, header, skip link, footer, canonical URL and Open Graph metadata |
 | `src/layouts/KnowledgeLayout.astro` | Compatibility wrapper retaining existing title/description props for Knowledge routes |
 | `src/styles/projects.css` | Case-study styling scoped under `.portfolio`; reuses global fonts, colors and controls |
-| `public/projects/gaku-site-desktop.png` | Existing 1440 x 1000 screenshot, shown in the homepage preview and referenced in case-study social metadata |
+| `public/projects/gaku-site-desktop.png` | Existing 1440 x 1000 screenshot, shown in the Project index and referenced in case-study social metadata |
 | `public/icons/arrow-*.svg` | Local Lucide arrows, preserving the original license notices |
 | `tests/projects.test.mjs` | Production-output regression coverage for the preview, route, content, navigation targets, assets and documentation |
 
@@ -131,14 +133,15 @@ The single case study is authored directly in Astro rather than adding a project
 
 Navigation behavior:
 
-- Real URLs replace the demo's hidden-view routing. `/#projects` returns to the homepage section, while `/projects/gaku-site/` can be loaded or shared independently.
+- Main navigation is ordered About, Knowledge, Project, Contact. About and Contact target the profile page; Project opens `/projects/`. Experience remains in the profile body but has no top-level navigation entry.
+- Project return links target `/projects/`, while `/projects/gaku-site/` can be loaded or shared independently. No link relies on a homepage Projects section.
 - The desktop sidebar and mobile selector are generated from the same section array. Native fragment navigation preserves browser history and direct links.
 - JavaScript reveals the mobile selector, focuses the selected heading without an extra focus scroll, and updates the sidebar's `aria-current="location"` on hash changes, scroll, page restoration and resize.
 - Scroll handling is throttled with `requestAnimationFrame`. At the bottom of the document, the final section stays selected even when there is insufficient content to align it at the top.
 - Global 80px scroll padding plus case-study scroll margins provide 112px desktop and 164px mobile anchor offsets. The mobile selector sits below the 76px header. Existing reduced-motion rules apply.
 - Without JavaScript, all content remains rendered and readable. Native mobile section links replace the selector through `noscript`; desktop links work unchanged.
 
-The content shell adds a Projects link to Knowledge pages without changing their routes or content API. Canonical and Open Graph URLs use the configured Astro site origin; the project screenshot supplies the case-study sharing image. The homepage keeps its existing hero, menu, contact controls and layout.
+The content shell uses the same four navigation labels as the homepage without changing Knowledge routes or their content API. Canonical and Open Graph URLs use the configured Astro site origin; the project screenshot supplies the case-study sharing image. The homepage keeps its existing hero, menu, work history and contact controls.
 
 Assets were promoted from the approved design, not fetched again. The screenshot was captured on September 13, 2026 and contains the site's existing imagery. The three arrows are from `lucide-static@0.468.0`. No new runtime dependency, backend, secret, build plugin, or Azure resource is introduced. Fonts and the homepage's existing remote images remain external dependencies.
 

@@ -1,13 +1,11 @@
 ---
 import '../styles/global.css';
-import ProjectPreview from '../components/ProjectPreview.astro';
 
 const email = 'hakbean0728@gmail.com';
 const navItems = [
-  { label: 'Knowledge', href: '/knowledge/' },
   { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
+  { label: 'Knowledge', href: '/knowledge/' },
+  { label: 'Project', href: '/projects/' },
   { label: 'Contact', href: '#contact' },
 ];
 ---
@@ -72,7 +70,7 @@ const navItems = [
               <p class="lead">I am an Azure Support Engineer based in Tokyo, working with enterprise customers on cloud infrastructure and hybrid environment issues.</p>
               <p>Before joining Microsoft, I supported MuleSoft products at Salesforce and worked on API development and integration-product research at NTT DATA.</p>
               <p>I am passionate about AI-assisted programming and use Microsoft 365 Copilot and GitHub Copilot extensively in my daily work. My long-term goal is to grow toward an AI Engineer, Solution Architect, or Solution Engineer role.</p>
-              <p>Outside work, I enjoy meeting people, exchanging ideas about technology, and investing in the U.S. stock market.</p>
+              <p>Outside work, I enjoy boxing, meeting people, exchanging ideas about technology, and investing in the U.S. stock market.</p>
             </div>
           </div>
         </div>
@@ -138,11 +136,9 @@ const navItems = [
         </div>
       </section>
 
-      <ProjectPreview />
-
       <section class="section contact-section" id="contact" aria-labelledby="contact-title">
         <div class="section-inner">
-          <span class="section-number">04 / Contact</span>
+          <span class="section-number">03 / Contact</span>
           <h2 id="contact-title">Let's connect.</h2>
           <p class="contact-lede">I enjoy meeting new people, talking about technology, and investing in the U.S. stock market. Feel free to get in touch.</p>
           <div class="contact-actions">

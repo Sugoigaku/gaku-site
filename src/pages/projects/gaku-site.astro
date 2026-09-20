@@ -12,7 +12,7 @@ const sections = [
 <ContentLayout title="Gaku Personal Website" description="A professional profile and technical knowledge library, built with Astro and deployed to Azure. The stack, key decisions, and next improvements." section="projects" image="/projects/gaku-site-desktop.png">
   <article class="portfolio">
     <header class="project-shell case-intro" id="overview">
-      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/#projects">Projects</a><span aria-hidden="true">/</span><span>Gaku Personal Website</span></nav>
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/projects/">Projects</a><span aria-hidden="true">/</span><span>Gaku Personal Website</span></nav>
       <p class="project-label">Personal project / Live</p>
       <h1>Gaku Personal Website</h1>
       <p class="lead">A professional profile and a public library of technical articles.</p>
@@ -34,7 +34,7 @@ const sections = [
       <nav class="section-nav" aria-label="Case study sections">
         <p class="small-label">The project</p>
         {sections.map(section => <a href={`#${section.id}`} data-section-link><span>{section.number}</span>{section.label}</a>)}
-        <a class="back-link" href="/#projects"><img class="icon" src="/icons/arrow-left.svg" alt="" width="17" height="17" />All projects</a>
+        <a class="back-link" href="/projects/"><img class="icon" src="/icons/arrow-left.svg" alt="" width="17" height="17" />All projects</a>
       </nav>
       <div class="case-content">
         <section class="chapter" id="build" data-chapter aria-labelledby="build-title">
@@ -79,7 +79,7 @@ const sections = [
         </section>
       </div>
     </div>
-    <section class="closing" aria-label="Project links"><div class="project-shell"><a class="project-link" href="https://github.com/Sugoigaku/gaku-site" target="_blank" rel="noopener noreferrer">Explore the repository <img class="icon" src="/icons/arrow-up-right.svg" alt="" width="17" height="17" /></a><a class="project-link" href="/#projects"><img class="icon" src="/icons/arrow-left.svg" alt="" width="17" height="17" />Back to projects</a></div></section>
+    <section class="closing" aria-label="Project links"><div class="project-shell"><a class="project-link" href="https://github.com/Sugoigaku/gaku-site" target="_blank" rel="noopener noreferrer">Explore the repository <img class="icon" src="/icons/arrow-up-right.svg" alt="" width="17" height="17" /></a><a class="project-link" href="/projects/"><img class="icon" src="/icons/arrow-left.svg" alt="" width="17" height="17" />Back to projects</a></div></section>
   </article>
 </ContentLayout>
 
