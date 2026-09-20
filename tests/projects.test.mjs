@@ -5,6 +5,7 @@ import test from 'node:test';
 const home = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const projectIndex = await readFile(new URL('../dist/projects/index.html', import.meta.url), 'utf8');
 const page = await readFile(new URL('../dist/projects/gaku-site/index.html', import.meta.url), 'utf8');
+const skillsPage = await readFile(new URL('../dist/projects/gaku-skills/index.html', import.meta.url), 'utf8');
 
 test('About keeps work history but links to projects on a separate page', () => {
   assert.match(home, /href="\/projects\/"[^>]*>Project<\/a>/);
@@ -20,7 +21,7 @@ test('About keeps work history but links to projects on a separate page', () => 
 
 test('main navigation has the same four ordered links on every page', async () => {
   const knowledge = await readFile(new URL('../dist/knowledge/index.html', import.meta.url), 'utf8');
-  for (const document of [home, knowledge, projectIndex, page]) {
+  for (const document of [home, knowledge, projectIndex, page, skillsPage]) {
     const nav = document.match(/<nav\b[^>]*aria-label="Main navigation"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
     assert.ok(nav, 'Missing main navigation');
     const links = [...nav.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)];
@@ -83,7 +84,7 @@ test('case study retains concise decisions, delivery details and honest future w
 
 test('portfolio assets are deployed and external links do not expose credentials', async () => {
   const preview = projectIndex.slice(projectIndex.indexOf('id="projects"'), projectIndex.indexOf('</main>'));
-  for (const html of [preview, page]) {
+  for (const html of [preview, page, skillsPage]) {
     for (const [, src] of html.matchAll(/<img[^>]+src="([^"]+)"/g)) {
       assert.ok((await readFile(new URL(`../dist${src}`, import.meta.url))).length > 0);
     }
@@ -94,10 +95,40 @@ test('portfolio assets are deployed and external links do not expose credentials
 });
 
 test('production portfolio stays within the approved combined copy budget', () => {
-  const preview = projectIndex.slice(projectIndex.indexOf('id="projects"'), projectIndex.indexOf('</main>'));
+  const preview = projectIndex.slice(projectIndex.indexOf('data-project="gaku-site"'), projectIndex.indexOf('data-project="gaku-skills"'));
   const article = page.slice(page.indexOf('<article class="portfolio">'), page.indexOf('</main>'));
   const words = (preview + article).replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '').replace(/<[^>]*>/g, ' ').trim().split(/\s+/);
   assert.ok(words.length <= 950, `Portfolio copy exceeds the 950-word budget: ${words.length}`);
+});
+
+test('Gaku Skills is discoverable independently of About and the first project', () => {
+  assert.equal([...projectIndex.matchAll(/data-project="[^"]+"/g)].length, 2);
+  assert.match(projectIndex, /href="\/projects\/gaku-skills\/"/);
+  assert.match(projectIndex, /href="https:\/\/github\.com\/Sugoigaku\/gaku-skills"/);
+  assert.doesNotMatch(home, /Gaku Skills|data-project="gaku-skills"/);
+  assert.match(skillsPage, /<title>Gaku Skills \| Gaku Chen<\/title>/);
+  assert.match(skillsPage, /rel="canonical" href="https:\/\/www\.gakuchen\.com\/projects\/gaku-skills\/"/);
+  assert.equal([...skillsPage.matchAll(/<h1\b/g)].length, 1);
+  assert.match(skillsPage, /href="\/projects\/"/);
+});
+
+test('Gaku Skills description retains documented capabilities and limits', () => {
+  for (const topic of ['case-session-to-wiki', 'Python 3.10+', 'QA', 'How-to', 'Break-fix', 'evidence.json', 'mechanically-checked', 'semantic review', 'no automatic publishing', 'not an automatic redactor']) {
+    assert.ok(skillsPage.includes(topic), `Missing documented capability or boundary: ${topic}`);
+  }
+  assert.match(skillsPage, /https:\/\/github\.com\/Sugoigaku\/gaku-skills\/blob\/master\//);
+  assert.doesNotMatch(skillsPage, /independently verified accuracy gains|guaranteed accuracy/);
+});
+
+test('Gaku Skills uses native, unique section links without a JavaScript dependency', () => {
+  const ids = [...skillsPage.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(ids.length, new Set(ids).size);
+  for (const [, id] of skillsPage.matchAll(/(?:href="#|aria-labelledby=")([^"]+)"/g)) {
+    assert.ok(ids.includes(id), `Missing Gaku Skills target: ${id}`);
+  }
+  for (const id of ['build', 'decisions', 'next']) assert.ok(ids.includes(id));
+  assert.match(skillsPage, /class="mobile-fallback"/);
+  assert.doesNotMatch(skillsPage, /<script\b|<select\b/);
 });
 
 test('production documentation replaces demo references and distinguishes deployment', async () => {
@@ -113,6 +144,7 @@ test('production documentation replaces demo references and distinguishes deploy
   assert.doesNotMatch(product, /Public wiki, investment notes|Technical wiki articles and investment reflections may be added|Add a Projects preview to the homepage/);
   assert.match(technical, /Project Portfolio Implementation/);
   assert.match(technical, /without JavaScript/i);
+  for (const document of [product, technical]) assert.match(document, /\/projects\/gaku-skills\//);
   for (const document of [product, technical]) assert.doesNotMatch(document, /demos\/project-portfolio/);
 });
 

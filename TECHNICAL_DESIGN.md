@@ -103,6 +103,7 @@ Astro file-based routing currently produces:
 /                                      Profile
 /projects/                              Project index
 /projects/gaku-site/                    Personal website case study
+/projects/gaku-skills/                  Copilot skills case study
 /knowledge/                            Knowledge index
 /knowledge/application-gateway/        Article
 /knowledge/kerberos/                   Article
@@ -122,6 +123,7 @@ The approved portfolio is implemented in the application source. The standalone 
 | `src/pages/index.astro` | About/profile page with work history, interests and Contact; links to Project without embedding a preview |
 | `src/pages/projects/index.astro` | Standalone Project index reusing the preview inside the shared content layout |
 | `src/pages/projects/gaku-site.astro` | Static case-study content, three section definitions, and typed browser navigation script |
+| `src/pages/projects/gaku-skills.astro` | Public-repository-based skills overview, native section links, source references, and explicit validation boundaries |
 | `src/layouts/ContentLayout.astro` | Shared Knowledge/Projects shell, header, skip link, footer, canonical URL and Open Graph metadata |
 | `src/layouts/KnowledgeLayout.astro` | Compatibility wrapper retaining existing title/description props for Knowledge routes |
 | `src/styles/projects.css` | Case-study styling scoped under `.portfolio`; reuses global fonts, colors and controls |
@@ -129,9 +131,11 @@ The approved portfolio is implemented in the application source. The standalone 
 | `public/icons/arrow-*.svg` | Local Lucide arrows, preserving the original license notices |
 | `tests/projects.test.mjs` | Production-output regression coverage for the preview, route, content, navigation targets, assets and documentation |
 
-The single case study is authored directly in Astro rather than adding a project content schema before multiple entries require it. Its three sections are Project & Delivery (`#build`), Key Decisions (`#decisions`), and What's Next (`#next`). Decisions also have stable nested anchors, such as `#decision-hosting`. The preview and case study retain the approved 950-word combined copy budget and 110-word per-decision limit.
+The two case studies are authored directly in Astro; a project content schema is deferred until repeated editing warrants it. Both reuse the shared content shell and portfolio styles. The personal website case study has three sections: Project & Delivery (`#build`), Key Decisions (`#decisions`), and What's Next (`#next`). Its decisions also have stable nested anchors, such as `#decision-hosting`. Its own preview and case study retain the approved 950-word combined copy budget and 110-word per-decision limit, independently of other projects.
 
-Navigation behavior:
+Gaku Skills reuses these section IDs on its separate route, with Boundaries & Next Steps as the final section. Desktop and mobile use native links without JavaScript. The project index presents a semantic HTML workflow diagram for this skill instead of a remote image dependency. Descriptions reflect the public repository reviewed on September 20, 2026; no skill installation, session reading, or generated evidence import occurs in this website.
+
+Shared navigation and personal website case-study behavior:
 
 - Main navigation is ordered About, Knowledge, Project, Contact. About and Contact target the profile page; Project opens `/projects/`. Experience remains in the profile body but has no top-level navigation entry.
 - Project return links target `/projects/`, while `/projects/gaku-site/` can be loaded or shared independently. No link relies on a homepage Projects section.

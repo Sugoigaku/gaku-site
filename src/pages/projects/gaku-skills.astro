@@ -1,0 +1,84 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import '../../styles/projects.css';
+
+const repository = 'https://github.com/Sugoigaku/gaku-skills';
+const skillPath = `${repository}/tree/master/.github/skills/case-session-to-wiki`;
+const sections = [
+  { id: 'build', number: '01', label: 'Project & delivery' },
+  { id: 'decisions', number: '02', label: 'Key decisions' },
+  { id: 'next', number: '03', label: 'Boundaries & next steps' },
+];
+---
+
+<ContentLayout title="Gaku Skills" description="GitHub Copilot skills for turning troubleshooting sessions into reusable, evidence-backed technical knowledge. Formats, validation, and publication boundaries." section="projects">
+  <article class="portfolio skills-case">
+    <header class="project-shell case-intro" id="overview">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/projects/">Projects</a><span aria-hidden="true">/</span><span>Gaku Skills</span></nav>
+      <p class="project-label">Personal project / Public repository</p>
+      <h1>Gaku Skills</h1>
+      <p class="lead">Turn troubleshooting conversations into knowledge someone else can use.</p>
+      <p class="intro-copy">A collection of reusable GitHub Copilot skills for technical support. Its first skill, case-session-to-wiki, turns selected session evidence into focused articles, with citations and uncertainty kept explicit.</p>
+      <ul class="tags" aria-label="Technology stack"><li>GitHub Copilot</li><li>Markdown skill contracts</li><li>Python 3.10+</li><li>JSON evidence</li></ul>
+      <div class="actions">
+        <a class="button primary" href={repository} target="_blank" rel="noopener noreferrer">View repository <img class="icon" src="/icons/arrow-up-right.svg" alt="" width="17" height="17" /></a>
+        <a class="project-link" href={skillPath} target="_blank" rel="noopener noreferrer">Explore the skill <img class="icon" src="/icons/arrow-right.svg" alt="" width="17" height="17" /></a>
+      </div>
+      <dl class="facts"><div><dt>First skill</dt><dd>case-session-to-wiki</dd></div><div><dt>Article formats</dt><dd>QA / How-to / Break-fix</dd></div><div><dt>Repository reviewed</dt><dd><time datetime="2026-09-20">September 20, 2026</time></dd></div></dl>
+    </header>
+
+    <nav class="mobile-fallback" aria-label="Case study sections">{sections.map(section => <a href={`#${section.id}`}>{section.label}</a>)}</nav>
+    <div class="project-shell case-grid">
+      <nav class="section-nav" aria-label="Case study sections">
+        <p class="small-label">The project</p>
+        {sections.map(section => <a href={`#${section.id}`}><span>{section.number}</span>{section.label}</a>)}
+        <a class="back-link" href="/projects/"><img class="icon" src="/icons/arrow-left.svg" alt="" width="17" height="17" />All projects</a>
+      </nav>
+      <div class="case-content">
+        <section class="chapter" id="build" aria-labelledby="build-title">
+          <p class="project-label">01 / Project &amp; delivery</p><h2 id="build-title">Reusable guidance, not a transcript dump.</h2>
+          <p>Support conversations mix evidence, failed attempts, and explanations. The skill organizes reusable findings by topic and reader task instead of preserving the entire case chronology.</p>
+          <dl class="build-spec">
+            <div><dt>Inputs</dt><dd><strong>An explicitly selected local session or transcript</strong><p>A bounded Python reader pages supported visible messages and tool results, excluding hidden reasoning and unrelated sessions.</p></dd></div>
+            <div><dt>Outputs</dt><dd><strong>QA, How-to, and Break-fix articles</strong><p>Direct answers for concepts; detailed actions for tasks and failures. Rich sessions can produce several topic-specific articles rather than one catch-all page.</p></dd></div>
+            <div><dt>Evidence</dt><dd><strong>Inline citations plus an evidence.json companion</strong><p>Source locations and short original excerpts support claims. The companion records provenance, documentation-based additions, and execution status.</p></dd></div>
+            <div><dt>Delivery</dt><dd><strong>Fresh session-local output folders</strong><p>The workflow saves de-identified drafts and reports file links without overwriting earlier runs. A hash-checking installer refuses conflicting local skill copies.</p></dd></div>
+            <div><dt>Validation</dt><dd><strong>Python standard-library helpers and tests</strong><p>Documented tests cover packaging, reader boundaries, quote matching, invalid inputs, and stale review hashes. The helpers require no extra Python packages or network services themselves.</p><a href={`${repository}/tree/master/tests`} target="_blank" rel="noopener noreferrer">Tests and evaluation scenarios</a></dd></div>
+          </dl>
+          <figure class="diagram"><figcaption>From selected evidence to reviewed knowledge</figcaption><ol class="flow"><li><strong>Select &amp; inspect</strong><span>Bounded session input and sources</span></li><li><strong>Draft &amp; check</strong><span>Articles and evidence companion</span></li><li class="destination"><strong>Separate review</strong><span>Claim-level review before publication</span></li></ol></figure>
+        </section>
+
+        <section class="chapter" id="decisions" aria-labelledby="decisions-title">
+          <p class="project-label">02 / Key decisions</p><h2 id="decisions-title">Keep the evidence behind the answer.</h2>
+          <article class="decision-record">
+            <h3><span class="decision-number">01</span>Organize by reader task.</h3>
+            <dl class="decision-facts"><div><dt>Choice</dt><dd>Three article formats with detailed procedures where needed, rather than a chronological session summary.</dd></div><div><dt>Why</dt><dd>A future reader needs an answer or a path to resolution, not every troubleshooting attempt.</dd></div><div><dt>Tradeoff</dt><dd>Selecting topics and matching formats requires judgment; not every topic needs all three formats.</dd></div></dl>
+            <a class="source-link" href={`${repository}/blob/master/.github/skills/case-session-to-wiki/references/article-planning.md`} target="_blank" rel="noopener noreferrer">Article planning contract</a>
+          </article>
+          <article class="decision-record">
+            <h3><span class="decision-number">02</span>Separate observations from additions.</h3>
+            <dl class="decision-facts"><div><dt>Choice</dt><dd>Allow targeted documentation enrichment while recording each claim's basis and execution status.</dd></div><div><dt>Why</dt><dd>A useful explanation may need external context, but an added command must not inherit a historical experiment's success.</dd></div><div><dt>Tradeoff</dt><dd>Maintaining precise sources and the evidence companion adds work. Extraction-only mode disables new technical procedures.</dd></div></dl>
+            <a class="source-link" href={`${repository}/blob/master/.github/skills/case-session-to-wiki/references/enrichment.md`} target="_blank" rel="noopener noreferrer">Enrichment contract</a>
+          </article>
+          <article class="decision-record">
+            <h3><span class="decision-number">03</span>Do not equate checks with truth.</h3>
+            <dl class="decision-facts"><div><dt>Choice</dt><dd>Distinguish incomplete, mechanically-checked, and complete outputs; require separate semantic review tied to final content hashes.</dd></div><div><dt>Why</dt><dd>A quote can match a passage yet fail to support the claim beside it.</dd></div><div><dt>Tradeoff</dt><dd>Mechanical checks cannot authenticate a reviewer, judge every claim, or detect every private identifier.</dd></div></dl>
+            <a class="source-link" href={`${repository}/blob/master/.github/skills/case-session-to-wiki/references/evidence-validation.md`} target="_blank" rel="noopener noreferrer">Evidence validation contract</a>
+          </article>
+        </section>
+
+        <section class="chapter" id="next" aria-labelledby="next-title">
+          <p class="project-label">03 / Boundaries &amp; next steps</p><h2 id="next-title">Local drafts are not public approval.</h2>
+          <p>The repository documents no automatic publishing, case closure, procedure execution, or outbound messaging. De-identification is required, but this is not an automatic redactor or a permission bypass.</p>
+          <dl class="next-list">
+            <div><dt>Explicitly deferred</dt><dd>Cross-account session retrieval, attachment extraction, live case evidence retrieval, and merging drafts into existing wikis.</dd></div>
+            <div><dt>Evaluation boundary</dt><dd>Synthetic scenarios and native smoke tests support evaluation. Unit-test success does not prove arbitrary articles are factually correct.</dd></div>
+            <div><dt>Website boundary</dt><dd>This site links to the public project only. It does not import support sessions, evidence companions, or generated private drafts.</dd></div>
+          </dl>
+          <p class="next-priority"><strong>Before publication:</strong> independently review claims, privacy, and source applicability. This overview describes the public repository, not independently verified accuracy or measured productivity gains.</p>
+        </section>
+      </div>
+    </div>
+    <section class="closing" aria-label="Project links"><div class="project-shell"><a class="project-link" href={repository} target="_blank" rel="noopener noreferrer">Explore the repository <img class="icon" src="/icons/arrow-up-right.svg" alt="" width="17" height="17" /></a><a class="project-link" href="/projects/"><img class="icon" src="/icons/arrow-left.svg" alt="" width="17" height="17" />Back to projects</a></div></section>
+  </article>
+</ContentLayout>

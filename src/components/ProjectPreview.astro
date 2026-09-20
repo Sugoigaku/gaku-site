@@ -4,7 +4,7 @@
       <span class="section-number">Selected work</span>
       <h1 id="projects-title">Projects.</h1>
     </div>
-    <article class="project-preview">
+    <article class="project-preview" data-project="gaku-site">
       <a class="project-image" href="/projects/gaku-site/" aria-label="View Gaku Personal Website case study">
         <img src="/projects/gaku-site-desktop.png" alt="Gaku Chen's website showing the introduction and About section" width="1440" height="1000" loading="lazy" />
       </a>
@@ -21,6 +21,28 @@
         <div class="preview-note"><span>Key change</span><p>Linux VM to managed static hosting: less server maintenance for a content-only site.</p></div>
       </div>
     </article>
+    <article class="project-preview" data-project="gaku-skills">
+      <figure class="skills-workflow">
+        <figcaption>case-session-to-wiki</figcaption>
+        <ol>
+          <li><span class="workflow-step">01 / Input</span><strong>Selected session</strong><span>Visible messages and source evidence</span></li>
+          <li><span class="workflow-step">02 / Articles</span><strong>QA / How-to / Break-fix</strong><span>Focused answers and detailed procedures</span></li>
+          <li><span class="workflow-step">03 / Review</span><strong>Evidence companion</strong><span>Local checks, then separate semantic review</span></li>
+        </ol>
+      </figure>
+      <div class="preview-copy">
+        <span class="project-status">Public repository / Copilot skills</span>
+        <h2>Gaku Skills</h2>
+        <p>Reusable GitHub Copilot skills for evidence-based technical support knowledge extraction.</p>
+        <p>The first skill turns selected troubleshooting sessions into QA, How-to, and Break-fix articles, with original source references and an evidence companion.</p>
+        <ul class="project-tags" aria-label="Project technologies"><li>GitHub Copilot</li><li>Python</li><li>Markdown + JSON</li></ul>
+        <div class="project-actions">
+          <a class="button primary" href="/projects/gaku-skills/">View case study <img src="/icons/arrow-right.svg" alt="" width="17" height="17" /></a>
+          <a class="source-link" href="https://github.com/Sugoigaku/gaku-skills" target="_blank" rel="noopener noreferrer">Source <img src="/icons/arrow-up-right.svg" alt="" width="17" height="17" /></a>
+        </div>
+        <div class="preview-note"><span>Core boundary</span><p>Mechanical checks are not factual approval. Independent review comes before publication.</p></div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -28,6 +50,15 @@
   .projects-section .section-number { color: #b84225; }
   .projects-section h1 { font-size: 3rem; margin-bottom: 0; }
   .project-preview { display: grid; grid-template-columns: 1.15fr 1fr; gap: 3rem; align-items: center; }
+  .project-preview + .project-preview { margin-top: 4rem; padding-top: 4rem; border-top: 1px solid var(--line); }
+  .project-preview > * { min-width: 0; }
+  .skills-workflow { margin: 0; padding: 1.75rem; border: 1px solid var(--line); border-radius: 4px; background: #e9ece3; overflow-wrap: anywhere; }
+  .skills-workflow figcaption { margin-bottom: 1.5rem; font: 0.8rem/1.6 var(--mono); }
+  .skills-workflow ol { margin: 0; padding: 0; list-style: none; }
+  .skills-workflow li { display: grid; gap: 0.25rem; padding: 1rem 0; border-top: 1px solid var(--line); }
+  .skills-workflow strong { font: 1.15rem/1.4 var(--display); }
+  .skills-workflow li > span:last-child { font-size: 0.8rem; color: #4c5147; }
+  .workflow-step { font: 0.65rem/1.7 var(--mono); color: #345516; text-transform: uppercase; }
   .project-image { display: block; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
   .project-image img { display: block; width: 100%; height: auto; aspect-ratio: 1440 / 1000; }
   .project-status { color: #345516; font: 0.7rem/1.6 var(--mono); }

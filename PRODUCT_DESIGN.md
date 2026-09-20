@@ -138,9 +138,10 @@ Approved on September 13, 2026 and updated on September 20, 2026 to use a separa
 
 - Open the standalone Project index from the top navigation; show the project preview there, not on the About/profile page.
 - Start with Gaku Personal Website as the first project. Use its real screenshot, a plain-language purpose, key technologies, and links to the case study and source.
+- Include Gaku Skills as the second project, with a compact workflow diagram and links to its case study and public repository. Keep both projects off the About/profile page.
 - Open a dedicated case-study page with the project name, what it does, its current functionality, the technology stack, and live-site/source links visible near the top.
 - State Gaku's role in scope, architecture decisions, and review separately from GitHub Copilot's implementation assistance.
-- Use three sections in this order, with desktop section navigation and a mobile section selector. Support direct section links, browser history, and a clear return to the Project index at `/projects/`.
+- Use three sections in this order for the first project, with desktop section navigation and a mobile section selector. Support direct section links, browser history, and a clear return to the Project index at `/projects/`.
 
 ### 1. Project & Delivery
 
@@ -184,3 +185,13 @@ The first priority is release validation and a tested recovery path. Recovery ha
 - Preserve the existing profile, knowledge pages, and publication-review boundary during integration.
 - Before release, verify project and source links, keyboard navigation, direct links, browser history, mobile section selection, asset loading, and desktop/mobile layouts without overflow.
 - Build, relevant automated tests, and Astro/TypeScript diagnostics must pass before deployment. Design approval alone does not satisfy these release criteria.
+
+### Gaku Skills
+
+Added on September 20, 2026 as the second project at `/projects/gaku-skills/`, based on the public [repository documentation](https://github.com/Sugoigaku/gaku-skills).
+
+- Explain the first skill, `case-session-to-wiki`: selected session input, QA/How-to/Break-fix outputs, citations, and an evidence companion.
+- Describe documented Python helpers, validation, and independent review without claiming measured productivity gains or verified factual accuracy.
+- Show Project & Delivery, Key Decisions, and Boundaries & Next Steps using native section links on desktop and mobile; no new client-side script is required.
+- Distinguish mechanical checks from semantic review and public approval. No automatic publication, case closure, or procedure execution is implied.
+- Link only to public project material. Do not copy sessions, generated private drafts, or evidence companions into the website.
