@@ -2,7 +2,7 @@
 
 ## 1. Product Overview
 
-An English-only personal website that presents Gaku's professional identity in a clear, credible, and approachable way. The original MVP is a focused single-page profile. The approved next phase adds a project portfolio that demonstrates how Gaku defines, builds, and delivers a solution.
+An English-only personal website that presents Gaku's professional identity in a clear, credible, and approachable way. The original MVP is a focused single-page profile. The current site extends that profile with separate Knowledge and Project pages. The project portfolio demonstrates how Gaku defines, builds, and delivers a solution.
 
 The original MVP scope below remains the baseline. Section 11 records the approved portfolio design, now implemented in the application source. Production deployment is a separate step.
 
@@ -28,7 +28,9 @@ The site should help a visitor answer three questions quickly:
 
 ## 4. MVP Experience
 
-The website will use one continuous page with simple navigation to four sections.
+The About/profile page remains one continuous page containing Introduction, About, Experience and Skills, and Contact. Knowledge and Project have separate pages rather than embedded homepage sections.
+
+Top navigation is ordered About, Knowledge, Project, Contact. About and Contact link to the corresponding profile sections; Knowledge opens `/knowledge/` and Project opens `/projects/`. Experience remains in the profile body but has no top-level navigation entry.
 
 ### Introduction
 
@@ -74,7 +76,7 @@ The website will use one continuous page with simple navigation to four sections
 ## 6. Product Requirements
 
 - English-only content.
-- Single-page navigation with clear section landmarks.
+- Consistent top navigation across pages, with clear section landmarks within the profile and articles.
 - Semantic HTML, keyboard support, visible focus states, and sufficient color contrast.
 - Fast loading with minimal client-side JavaScript.
 - Page title, meta description, favicon, and social sharing metadata.
@@ -82,7 +84,7 @@ The website will use one continuous page with simple navigation to four sections
 
 ## 7. Out of Scope for MVP
 
-- Project portfolio was outside the original MVP; it is now approved as the next phase described in Section 11.
+- Project portfolio was outside the original MVP; the implemented extension is described in Section 11.
 - Investment notes, search, filtering, or content management system.
 - Contact form or backend service.
 - User accounts, comments, public interaction, newsletter, or database.
@@ -110,7 +112,7 @@ The website repository will contain only approved public copies. The original Ob
 
 - Build as a static Astro site with TypeScript, CSS, and Markdown content collections.
 - Keep profile content in simple local data or components for easy editing.
-- Use Git and GitHub for version control with focused commits. The portfolio work is isolated on a feature branch.
+- Use Git and GitHub for version control with focused commits. The initial portfolio work used a feature branch; the current implementation is integrated into main.
 - Host on Azure Static Web Apps Free with a custom HTTPS domain. Retain the initial Linux VM and Nginx deployment as a separate infrastructure reference.
 - Use Bicep for resource provisioning, separate from application deployment.
 - GitHub Actions runs installation, build, tests, and Astro/TypeScript checks before uploading the static output on main updates or manual dispatch. Deployment credentials stay in GitHub Secrets.
@@ -130,15 +132,15 @@ The MVP is ready when:
 
 ### Status and Reference
 
-Approved on September 13, 2026 and integrated as the homepage Projects preview and [case-study implementation](src/pages/projects/gaku-site.astro) at `/projects/gaku-site/`. The standalone demos have been removed after integration; their iterations remain in Git history. Implementation details and validation are recorded in [Technical Design](TECHNICAL_DESIGN.md). This does not indicate a production deployment.
+Approved on September 13, 2026 and updated on September 20, 2026 to use a separate [Project index](src/pages/projects/index.astro) at `/projects/` and [case-study implementation](src/pages/projects/gaku-site.astro) at `/projects/gaku-site/`. The About/profile page no longer embeds the project preview. The standalone demos have been removed after integration; their iterations remain in Git history. Implementation details and validation are recorded in [Technical Design](TECHNICAL_DESIGN.md). This does not indicate a production deployment.
 
 ### Visitor Experience
 
-- Add a Projects preview to the homepage before Contact, with a navigation link to the section.
+- Open the standalone Project index from the top navigation; show the project preview there, not on the About/profile page.
 - Start with Gaku Personal Website as the first project. Use its real screenshot, a plain-language purpose, key technologies, and links to the case study and source.
 - Open a dedicated case-study page with the project name, what it does, its current functionality, the technology stack, and live-site/source links visible near the top.
 - State Gaku's role in scope, architecture decisions, and review separately from GitHub Copilot's implementation assistance.
-- Use three sections in this order, with desktop section navigation and a mobile section selector. Support direct section links, browser history, and a clear return to Projects.
+- Use three sections in this order, with desktop section navigation and a mobile section selector. Support direct section links, browser history, and a clear return to the Project index at `/projects/`.
 
 ### 1. Project & Delivery
 

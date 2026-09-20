@@ -105,6 +105,12 @@ test('production documentation replaces demo references and distinguishes deploy
   const technical = await readFile(new URL('../TECHNICAL_DESIGN.md', import.meta.url), 'utf8');
   assert.match(product, /src\/pages\/projects\/gaku-site\.astro/);
   assert.match(product, /Production deployment is a separate step/);
+  assert.match(product, /### Knowledge/);
+  assert.match(product, /The first public technical wiki articles are included/);
+  assert.match(product, /src\/pages\/projects\/index\.astro/);
+  assert.match(product, /About, Knowledge, Project, Contact/);
+  assert.match(product, /Experience remains in the profile body but has no top-level navigation entry/);
+  assert.doesNotMatch(product, /Public wiki, investment notes|Technical wiki articles and investment reflections may be added|Add a Projects preview to the homepage/);
   assert.match(technical, /Project Portfolio Implementation/);
   assert.match(technical, /without JavaScript/i);
   for (const document of [product, technical]) assert.doesNotMatch(document, /demos\/project-portfolio/);
