@@ -120,6 +120,18 @@ test('Gaku Skills description retains documented capabilities and limits', () =>
   assert.doesNotMatch(skillsPage, /independently verified accuracy gains|guaranteed accuracy/);
 });
 
+test('Gaku Skills preview uses a local photo instead of the text diagram', async () => {
+  const preview = projectIndex.slice(projectIndex.indexOf('data-project="gaku-skills"'), projectIndex.indexOf('</main>'));
+  assert.match(preview, /aria-label="View Gaku Skills case study"/);
+  assert.match(preview, /src="\/projects\/gaku-skills-workspace\.jpg"/);
+  assert.match(preview, /alt="Laptop displaying code on a desk beside a monitor"/);
+  assert.match(preview, /width="1440" height="1000" loading="lazy"/);
+  assert.doesNotMatch(preview, /skills-workflow|workflow-step|<figcaption/);
+  const image = await readFile(new URL('../dist/projects/gaku-skills-workspace.jpg', import.meta.url));
+  assert.deepEqual([...image.subarray(0, 3)], [0xff, 0xd8, 0xff]);
+  assert.ok(image.length > 1000, 'Image must contain more than a JPEG header');
+});
+
 test('Gaku Skills uses native, unique section links without a JavaScript dependency', () => {
   const ids = [...skillsPage.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(ids.length, new Set(ids).size);

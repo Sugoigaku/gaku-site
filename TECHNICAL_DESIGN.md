@@ -133,7 +133,9 @@ The approved portfolio is implemented in the application source. The standalone 
 
 The two case studies are authored directly in Astro; a project content schema is deferred until repeated editing warrants it. Both reuse the shared content shell and portfolio styles. The personal website case study has three sections: Project & Delivery (`#build`), Key Decisions (`#decisions`), and What's Next (`#next`). Its decisions also have stable nested anchors, such as `#decision-hosting`. Its own preview and case study retain the approved 950-word combined copy budget and 110-word per-decision limit, independently of other projects.
 
-Gaku Skills reuses these section IDs on its separate route, with Boundaries & Next Steps as the final section. Desktop and mobile use native links without JavaScript. The project index presents a semantic HTML workflow diagram for this skill instead of a remote image dependency. Descriptions reflect the public repository reviewed on September 20, 2026; no skill installation, session reading, or generated evidence import occurs in this website.
+Gaku Skills reuses these section IDs on its separate route, with Boundaries & Next Steps as the final section. Desktop and mobile use native links without JavaScript. The project index uses a locally hosted illustrative coding-workspace photo, not a product screenshot. Descriptions reflect the public repository reviewed on September 20, 2026; no skill installation, session reading, or generated evidence import occurs in this website.
+
+The Gaku Skills preview asset is `public/projects/gaku-skills-workspace.jpg`, downloaded on September 20, 2026 from [Unsplash](https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1440&h=1000&q=85&fm=jpg). It uses the same 1440 x 1000 aspect ratio as the website preview and requires no external image request at runtime.
 
 Shared navigation and personal website case-study behavior:
 

@@ -138,7 +138,7 @@ Approved on September 13, 2026 and updated on September 20, 2026 to use a separa
 
 - Open the standalone Project index from the top navigation; show the project preview there, not on the About/profile page.
 - Start with Gaku Personal Website as the first project. Use its real screenshot, a plain-language purpose, key technologies, and links to the case study and source.
-- Include Gaku Skills as the second project, with a compact workflow diagram and links to its case study and public repository. Keep both projects off the About/profile page.
+- Include Gaku Skills as the second project, with an illustrative coding-workspace photo and links to its case study and public repository. Keep both projects off the About/profile page.
 - Open a dedicated case-study page with the project name, what it does, its current functionality, the technology stack, and live-site/source links visible near the top.
 - State Gaku's role in scope, architecture decisions, and review separately from GitHub Copilot's implementation assistance.
 - Use three sections in this order for the first project, with desktop section navigation and a mobile section selector. Support direct section links, browser history, and a clear return to the Project index at `/projects/`.
